@@ -47,14 +47,13 @@ export default function Hero() {
           </div>
           
           {/* Right: Product Image */}
-          <div className="relative">
+          <div className="relative h-64 md:h-80">
             <Image 
-              src="/images/main-image-our-wedding-book.jpg"
+              src="/images/2.jpg"
               alt="OLEEK Memories Book - Our Wedding video album open and playing"
-              width={600}
-              height={300}
+              fill
               priority
-              className="rounded-lg shadow-xl"
+              className="rounded-lg shadow-xl object-cover"
             />
           </div>
         </div>
