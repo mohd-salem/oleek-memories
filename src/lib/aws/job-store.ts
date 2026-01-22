@@ -41,7 +41,7 @@ export const jobStore = {
     const now = Date.now();
     const DAY_MS = 24 * 60 * 60 * 1000;
     
-    for (const [fileId, info] of jobs.entries()) {
+    for (const [fileId, info] of Array.from(jobs.entries())) {
       if (now - info.createdAt > DAY_MS) {
         jobs.delete(fileId);
       }
