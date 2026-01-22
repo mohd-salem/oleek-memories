@@ -1,0 +1,484 @@
+OLEEK "Memories Book" Website Plan and Recommendations
+Site Structure and Key Pages
+To create a professional and user-friendly experience, the OLEEK website will include the following primary pages:
+Home/Product Showcase: Introduce the Memories Book with high-level features (e.g. 7" video album, linen cover, etc.) and highlight how it works. This page can show the different design versions (Our Wedding, We Do, Always & Forever, Memories, etc.) and the memory options (16GB and 32GB). Include a clear call-to-action button that directs visitors to purchase on Amazon (since we will use Amazon for checkout).
+Convert Your Video Page: An online video conversion tool where customers can upload their videos and have them converted into the optimal format for the Memories Book. Emphasize that this service is free, fast, and privacy-focused (no long-term data storage).
+Upload/Convert Terms & Conditions: A dedicated page outlining the terms for using the upload/conversion service. This will cover user responsibilities (e.g. owning the rights to the video) and privacy assurances.
+Learn / Tutorial Page: A page that teaches customers how to use the Memories Book. This will serve as a user manual – explaining how to load videos onto the device, best practices (file format, resolution, etc.), and tips for optimal use.
+FAQ Page: A comprehensive Frequently Asked Questions section covering general questions, technical details, troubleshooting, and other common inquiries (e.g. shipping, contact info, etc.).
+Contact & Support: Provide contact information (support email or form, and possibly social media links). This could be a separate “Contact” page or just information in the footer/FAQ. Ensuring customers can easily reach out adds to professionalism.
+Using clear navigation and logical grouping of these pages will help users find information quickly. For example, the Learn and FAQ pages can be under a "Learn" or "Support" menu section, while Convert and Terms can be linked from the Convert page and footer. (The site will be built with Next.js for flexibility, performance, and SEO. All content will initially be in English (US), with plans for future localization.)
+Home Page – Emphasize Product Features
+The home page (or main product page) should immediately convey the value of the Memories Book and how it stands out. Key elements to include:
+Hero Section: A striking image or mockup of the Memories Book playing a wedding video, with a tagline like “Your Wedding Memories, Brought to Life”. A brief description can highlight that it's a 7-inch video album with automatic playback when opened. For example: “OLEEK Memories Book is a linen-bound video album with a gorgeous 7” HD display and built-in speakers – simply open the cover and your wedding video comes to life.” This mirrors the competitor’s description but updated for OLEEK
+.
+Highlight Improved Specs: Clearly state how OLEEK’s device improves upon others:
+Larger Memory: 16GB (and a 32GB model) of internal storage vs. the typical 4GB. This allows storing up to 12 hours of video on the 16GB version (and even more on 32GB) – compared to ~3 hours on a 4GB device
+. Emphasize that users can fit all their important videos.
+Extended Battery Life: A high-capacity 5000mAh rechargeable battery, which is about double the capacity of standard competitors (often ~2500mAh)
+. This yields roughly 8 hours of continuous video playback on a full charge (versus ~4 hours on other brands
+) and well over a year of standby time. This is a major selling point for convenience during events or sharing sessions.
+Easy Video Loading: No special software required – just plug the Memories Book into a computer via USB (USB Micro-B cable included, same as standard) and drag-and-drop videos, like using a flash drive
+. If possible, mention Plug & Play simplicity and compatibility with both Mac and PC.
+Automatic Playback: Show that the device auto-plays videos upon opening the cover, creating a magical experience. (This is a core feature – “Always ready to play: open the book and your memories come to life – instantly”
+.)
+Premium Design: Highlight the luxurious linen hardcover with elegant foil stamping on the cover, giving it a timeless, keepsake quality
+. Mention that it comes in multiple themed cover titles (Our Wedding, Best Day Ever, We Do, Memories, Always & Forever, etc.), so customers can choose one that fits their story. High-quality design builds trust in the product’s value.
+Product Versions: List the available versions. For example, a section with thumbnails of each cover design:
+Our Wedding – Gold or Black foil cover (available in 16GB or 32GB)
+We Do – Cursive white cover (16GB)
+Always & Forever – etc.
+Memories – etc.
+Each could have a brief caption and a “Buy on Amazon” button. Since we plan to fulfill through Amazon, clicking these can redirect to the corresponding Amazon product page. This way, our site doesn’t handle transactions – it simply funnels customers to Amazon for purchase (leveraging Amazon’s secure checkout and Prime shipping). This approach is user-friendly and simplifies our website’s scope.
+Testimonials or Use Cases: To add credibility, consider including a few short testimonials (if available) or simply a section like “A Perfect Gift for Your Loved Ones” with a couple of quotes. (The competitor’s site lists enthusiastic reviews about gifting the video book and loving the quality
+. We can incorporate similar sentiment to build trust.)
+“As Seen On” or Awards: If the competitor has any press or if we plan any marketing, a section for media logos or accolades can be added for professionalism. (Competitor shows they were featured on wedding blogs, etc. – we could plan for that in the future, but if none yet, this section can be skipped until we have some media coverage.)
+Footer: A professional footer with the OLEEK logo, company info, social media links, and quick links to FAQ, Terms, Contact, etc. Also include a small note that “OLEEK is a small business” if desired, to emphasize personal touch (competitor highlights being a small business brand).
+Copilot Prompt Example – Home Page: You can instruct Copilot to generate a Next.js page structure like so:
+// Create a Next.js page for the OLEEK Memories Book home.
+// Include a hero section with a title, tagline, and product image.
+// Add sections for features (Memory, Battery, Easy Use, Design), using brief headings and icons.
+// List the available versions with images and "Buy on Amazon" buttons (which link to Amazon).
+// Ensure the design looks clean and modern, using CSS for layout and responsiveness.
+This prompt will guide Copilot to scaffold the home page with appropriate sections. You will need to provide the exact text content and image assets, but Copilot can help with the HTML/JSX structure and styling suggestions.
+Convert Page – Online Video Conversion Tool
+The Convert page is a crucial feature that sets OLEEK apart by offering customers a hassle-free way to ensure their videos will play perfectly on the Memories Book. We want to make this page very professional and user-friendly. Key elements:
+Page Title & Intro: Clearly title the page “Convert Your Video(s)” (similar to competitor) and explain what it does. For example: “Use this tool to convert your video into the optimal format for the OLEEK Memories Book. Simply upload your video file, and we’ll convert it to an OLEEK-compatible MP4 format.” We should mention the benefit: no quality loss, and ensures it will play without issues. The competitor phrased it as “auto convert them into a format that works best with The Motion Books”
+ – we can use a similar tone but for our brand.
+Upload Form: Provide a file input for users to select their video file (or files). Include a note about accepted file types (e.g. “Most video formats are supported: MP4, MOV, AVI, MKV, etc.”). We know from competitor documentation that the device supports all standard formats but not 4K
+, so any video not already MP4/H.264 1080p needs conversion. Our form should handle multiple videos if possible (competitor mentions “video(s)”
+), but one at a time is fine to start.
+Client-Side Conversion (Privacy Focus): We prefer to perform the conversion directly in the user’s browser for privacy reasons. This means no video file is ever uploaded to our server – all processing happens on the user’s device. Highlight this advantage: “Your video never leaves your computer – conversion is done securely in your browser.” This addresses privacy-conscious users and is a competitive edge over The Motion Books, which temporarily stores uploads on their servers/Google Drive
+. We can even state explicitly that unlike others, we do not store your video on our servers. This approach is enabled by using a WebAssembly version of FFmpeg (ffmpeg.wasm) to handle the conversion fully client-side
+. The benefits of this are: no server needed, privacy by design (files never leave the device)
+, and it works in all modern browsers. We should cite this to lend credibility to the approach.
+Conversion Settings: Under the hood, we will convert videos to MP4 (H.264 codec) with settings optimized for the Memories Book’s hardware. According to The Motion Books guidelines, the ideal settings are up to 1920×1080 resolution, H.264 codec, around 5 Mbps bitrate (max ~8 Mbps), and 30 frames per second
+. We should ensure our converter enforces these:
+If a video is above 1080p or in a different format, we downscale to 1080p and re-encode. (We might even choose 720p as default output to save space, since the screen is 1024×600, but 1080p is fine for broad compatibility as competitor allows it
+.)
+If the video’s bitrate is very high (e.g. from a professional 4K file), re-encode to ~5–8 Mbps to avoid stutters on the device
+.
+If frame rate >30, drop to 30 fps.
+Maintain aspect ratio at 16:9. If the input is a different aspect (e.g. ultra-wide 21:9 or vertical), consider adding black bars (letterboxing) so the output is 16:9 without stretching
+. This is an advanced feature; initially we might simply preserve the aspect (which would cause black bars on the device automatically). We can improve this later with an option to letterbox.
+User Experience: Since conversion can take some time (especially if done in-browser), we need to keep the user informed:
+Show a progress indicator or at least a message like “Converting… this may take a few minutes for longer videos.”
+Ideally, display conversion progress if possible (ffmpeg.wasm can provide progress events or we can estimate based on file size). For example, a progress bar or percentage.
+Once conversion is complete, provide a download link or automatically trigger download for the converted MP4 file. Clearly label it, e.g. “Download Converted Video”.
+Also, include a note like “Now you can copy this file to your Memories Book and enjoy playback!” or even link to the Learn/Tutorial page for instructions on loading the video onto the device.
+Email Option (optional): The competitor’s service emails a link when done
+. With client-side conversion, we get instant results, so emailing isn’t necessary. However, if some users have trouble (for example, an older device might struggle with a heavy conversion in-browser), we might offer an alternative: e.g. “Having trouble? You can contact us to convert large files for you.” In the future, we might implement a server-side fallback (with the user’s consent) for very large videos or non-tech-savvy users. But initially, focusing on the direct in-browser method keeps things simple and private.
+Performance Consideration: Note: The FFmpeg WebAssembly bundle is ~30MB, so we will lazy-load it only when needed
+. This means the Convert page should not load the heavy library until the user selects a file and clicks “Convert”. We can have Copilot help us implement this optimization (e.g. using dynamic import() or loading in a Web Worker). This way, the main site stays fast and only users who use the converter will download the additional code.
+Terms Link: Somewhere on the Convert page (perhaps below the form or in the footer) include a small notice: “By using this service, you agree to the upload & convert terms and conditions.” with a link to that terms page. This keeps users aware of the legalities.
+Copilot Prompt Example – Convert Page (Client-side): In your Next.js page or React component file for the convert tool, you might write a comment like:
+// Build a video conversion tool using ffmpeg.wasm in the browser.
+// 1. Allow the user to select a video file (input type="file").
+// 2. When submitted, load FFmpeg.wasm and transcode the video to MP4 (H.264, 1080p, ~5Mbps, 30fps).
+// 3. Show a progress bar during conversion and handle large files by updating progress.
+// 4. After conversion, provide a download link for the new MP4 file. 
+// 5. Display messages: before conversion (instruction), during (e.g., "Converting..."), and after ("Conversion complete!").
+// Emphasize privacy: no files uploaded to server, conversion is in-browser.
+This will guide Copilot to generate the code structure for handling file input, invoking ffmpeg.wasm, and managing the conversion process. You will still need to fine-tune the ffmpeg commands (e.g., ffmpeg.exec(['-i', inputFile, ...])) based on the exact settings, but Copilot can help with boilerplate and async handling.
+Upload & Convert Terms and Conditions Page
+This page will detail the terms of using the upload/conversion service (and can double as general site terms if needed). To maintain a professional tone, structure it in a numbered list format (like the competitor’s terms
+). Key points to include:
+Acceptance of Terms: By uploading or converting a video on our site, the user agrees to these specific terms as well as our general site Terms of Use (if we have one). Basically, using the service implies acceptance.
+Ownership and Rights: The user must own the rights to any video they upload/convert or have permission from the owner. They warrant that using our service for that content is legal and doesn’t infringe copyright
+. (This protects us from liability if someone tries to convert a movie or someone else’s video without permission.)
+No Illegal Content: Users must agree not to use the service for any unlawful content – e.g. no defamatory, obscene or hate-inciting videos, and nothing that would be illegal to possess or distribute
+. We can broadly cover that any misuse is forbidden and will void their privilege to use the service.
+Temporary Storage & Privacy: (This part will differ from competitor due to our approach.) We should clarify what happens to the data. If we stick to purely client-side conversion, we can state: “OLEEK does not store your video files on our servers as part of the conversion process.” However, if at any point files are uploaded (for example, if we add an email option or the user chooses to upload for help), we should say any uploaded content may be temporarily stored during processing, but will be deleted afterward. The Motion Books terms explicitly say content will be temporarily stored on their server, Google Drive, and computers while processing
+. In our case, we can reassure users that for the automated web converter, files are processed locally in the browser, and if any temporary server processing occurs (e.g. via support), it’s only transient.
+Permission to Process: The user grants us the right to process and convert their video as needed. (Competitor even says “grant us the right to load your video onto the video books”
+ for their preload service. If we ever offer to preload videos onto a device for a customer, we’d include a similar clause. But since we’re selling through Amazon, preloading by us might not be applicable right now.)
+No Guarantee / Service Limitations: We should include a disclaimer that while we will try our best, we don’t guarantee a successful conversion in every case, and the service is provided as-is. Also not liable for technical failures, network issues, etc., that might prevent the upload or conversion
+. (For example, if the user’s browser crashes during conversion, that’s out of our control.)
+Liability and Indemnity: If the user violates the terms (e.g. uploads something illegal or breaches copyright), they agree that they are responsible for any consequences, and they indemnify our company (i.e. they will hold us harmless)
+. This is legal language basically saying if we get in trouble because of what they did, they have to cover us.
+Contact Information: Provide contact info for questions about these terms. For example: “If you have any questions about these Terms, please contact us at [email protected].” (The Motion Books include their support email in the terms page
+.)
+Make sure the language is formal and clear. It might be wise to have a legal consultant review it eventually, but we can base it largely on the competitor’s structure (altering it to our scenario). Copilot Prompt Example – Terms Content: Since this is mostly static text, you can use Copilot to help draft it by providing context. For instance:
+// Draft a Terms and Conditions section for our video upload/conversion service.
+// Use a formal tone. Cover user responsibility for uploaded content, privacy (no storage of files on server for the web converter), no illegal content, and limit our liability.
+// Structure it as a numbered list of points, similar to legal terms.
+Copilot can then generate a nicely worded terms document which you can refine. Be sure to replace or remove any placeholder names (it might insert something like "The Motion Books" if it picked up context; ensure it says OLEEK and the correct service name).
+Learn Page – Tutorial and Usage Guide
+The Learn page will function as a user manual or tutorial for the Memories Book. This page should be well-organized into questions or sections, much like an extended FAQ focused on using the device. We want customers to fully understand how to enjoy their video book and avoid common pitfalls. The competitor’s Learn page and tutorial/FAQ content provide a great blueprint for what to include. Here’s what our Learn page should cover:
+Loading Videos onto the Device: Explain step-by-step how to put videos on the Memories Book.
+Example: “How do I load videos onto the Memories Book? – Simply connect your Memories Book to a computer using the provided USB cable. It will appear as a USB drive on your computer. You can then drag and drop video files into it, just like you would with a flash drive
+. Once done, eject it safely. When you open the book, your videos will autoplay in the order they were added.”
+Mention both Mac and PC compatibility, and that the device acts like a mass storage drive (no special software). This reassures that it’s straightforward.
+Do Not Format the Device: Include a warning not to format the drive.
+“Should I format the Memories Book drive? – No, do not format it. The device comes pre-configured with special software that enables auto-play and controls. Formatting it (erasing and re-initializing the drive) will remove that software and can break the device’s functionality
+. It may also void your warranty. To free up space, simply delete files via your computer (and empty the trash/recycle bin) rather than formatting.”
+This is critical as users might think to format if something looks like a USB drive.
+Optimal Video Resolution & Format: State what video specs work best.
+“What video format and resolution work best? – The Memories Book supports most common video formats (MP4, MOV, AVI, etc.)
+. For best results, we recommend H.264 MP4 files at 720p or 1080p resolution and 30 frames per second
+. Higher resolutions like 4K/UHD are not supported
+ – if you try to load a 4K video, the device will show an error (the screen might display “NO FILES FOUND”). Our online converter will automatically optimize any video to the proper format if needed.”
+This gives users a heads-up on technical limits. (Competitor sometimes suggests 720p for perfect fit
+, but also says 1080p works. We can similarly say 1080p max, 720p is sufficient given the screen size.)
+Video Length and Size: Explain capacity in practical terms.
+“How many or how long of videos can I put? – The Memories Book comes with 16GB of memory (up to 3-4 hours of HD video), and we also offer a 32GB model for double the storage. While you can load multiple videos totaling many hours, we recommend using highlight reels or segments (e.g. 10-15 minute videos) for the best viewing experience
+. Very large files (over 4GB each) may need to be compressed to fit the file system limits
+. Our converter can help shrink large videos to fit if necessary.”
+This incorporates our higher capacity while echoing competitor advice. Note: Even with 16GB/32GB, the FAT32 file system likely limits individual file size to 4GB, so it’s good to warn that a single video file should be <4GB, or they must split it or compress it (as Motion Books does
+).
+Multiple Videos & Playback Order:
+“Can I put multiple videos? – Absolutely. You can load as many videos as the memory can hold. The Memories Book will play them in sequence. If you want a specific order, rename the files with a number or letter prefix so that they sort alphanumerically
+. For example, 1-FirstDance.mp4, 2-Ceremony.mp4, etc., to play in that order.”
+This is a useful tip carried over from the competitor’s FAQ
+.
+Photo and Audio Support:
+“Can I put photos or music? – Yes. The Memories Book can also display JPEG photos and play MP3 audio files. If you load photos onto it, they will play as a slideshow after any videos
+. You can even add a background music track (MP3) to play with your photo slideshow. Keep in mind the primary function is video, but photos/music are supported for added versatility.”
+Using the Controls (Buttons): Describe how to use play/pause, volume, and navigation:
+“How do the buttons work? – The Memories Book has built-in controls. Opening the book starts autoplay. You can pause/play using the play/pause button. Use the next and previous buttons to skip videos. For fast-forward or rewind within a video, press and hold the next/previous button – the video will scrub forward or backward
+. Volume buttons allow you to adjust sound on the fly.”
+This information ensures users know about the hidden features like fast-forward (which many might not realize without reading the manual).
+Changing Default Volume: This is a slightly advanced tip but valuable:
+“Can I change the default power-on volume? – Yes. When you connect the Memories Book to a computer, you’ll see a file called vol.txt in the drive. Open that in a text editor – it contains a number (default is 26). Lowering this number will lower the default volume on startup
+. Save the file, eject the device, and when you play it next time, it will start at the new volume level. (You can still adjust volume with the buttons during playback.)”
+Including this shows we know the device well and gives power-users extra control.
+Charging the Device: Explain how to charge and how long:
+“How do I charge it and how long does it last? – Charge the Memories Book using the provided micro-USB cable. You can plug it into any USB charger or a computer’s USB port. A full charge (for the 5000mAh battery) takes about 2-3 hours if using a high-current charger. On a full charge, you can get roughly 8 hours of continuous video playback, and the device can remain on standby (idle with the book closed) for 12+ months
+. We ship the book with some charge, but it’s best to fully charge it before first use. The battery is long-lasting, but we recommend charging it before events or gatherings so it’s ready to impress.”
+We doubled the playback time compared to competitor’s 4 hours
+, adjusting for our 5000mAh battery. It’s good to set correct expectations.
+Troubleshooting Common Issues: It’s important to mention a few troubleshooting tips:
+“Video not playing (‘No Files Found’ message)? – This means the file isn’t compatible. Make sure it’s not a 4K or an unusual format
+. Use our converter to fix the format if needed
+.”
+“Video plays but is stuttering or audio is out of sync? – This can happen if the video’s bitrate or framerate is too high for the device (for example, a very high quality video). The solution is to convert the video to our recommended settings (H.264, ~5 Mbps, 30fps)
+. Again, the online converter can do this automatically – it will ensure the frame rate and bitrate are optimized.”
+“Video is stretched weirdly? – Likely the video’s aspect ratio isn’t 16:9, so the device is stretching it to fill the screen. To fix this, you can re-encode the video with black borders (letterboxing) to make it a 16:9 video without distortion
+. (Our advanced converter tools or our support team can help with this if needed.)”
+“The device isn’t showing up on my computer? – Ensure you use a data-capable USB cable. The included cable supports data; if you use a random charger cable, some only do charging and the computer won’t recognize the device
+. If it still doesn’t appear, try a different USB port or restarting your computer.”
+Including these helps reduce support requests and shows we proactively address issues.
+All of the above can be formatted in a question-and-answer style or as a series of short sections with headings. The competitor’s Learn page is essentially an FAQ in structure
+, and we can mirror that for clarity. Use simple language for this page, as if explaining to someone who’s not extremely techy. Copilot Prompt Example – Learn Page Content: We might use Copilot to flesh out these sections. For instance:
+// Create a "Learn" page with FAQs about using the Memories Book.
+// Include Q&A entries such as "How to load videos?", "Should I format it?", "What resolution works best?", etc.
+// Use a friendly, instructive tone. Ensure to mention our device's specifics (16GB, 32GB, 5000mAh) and refer to our converter where relevant.
+This should prompt Copilot to generate a structured FAQ-like content. We can then edit it to make sure all the details match our product (for example, if Copilot mistakenly mentions 4GB or competitor’s name, adjust it).
+FAQ Page – Frequently Asked Questions
+The FAQ page will cover a broader range of questions, including some overlap with Learn (technical questions) but also general inquiries about the product and our company/policies. We should organize the FAQ into categories for easier navigation, similar to the competitor’s FAQ which has sections like General, Technical, Customization, Shipping, etc
+. Here’s a structure we can adopt, along with key Q&A entries (with OLEEK’s info):
+General Questions
+What is the OLEEK Memories Book?
+Answer: It’s a video photo album – a physical book with an embedded video player. Describe in one or two sentences: “It’s a linen-bound video album with a 7-inch screen and speakers. When you open it, it automatically plays your loaded videos. It’s perfect for wedding memories, anniversaries, or any special occasion videos, letting you relive those moments easily.” This is our core elevator pitch, similar to how The Motion Books described theirs
+, but using our name. Mention it’s often called a “video book” or “video brochure” in general.
+What occasions is it good for? (If not covered above) – We can say primarily weddings, but also engagements, birthdays, graduations – any event where you have a cherished video.
+What are the available styles?
+Answer: List our cover themes: “Currently, we offer designs titled Our Wedding, We Do, Always & Forever, and Memories – each with a beautiful linen cover. Our Wedding is our most popular for newlyweds, but all editions are functionally identical, only the cover text differs.” If we have color options (gold foil, black foil) mention those. Also, if a personalized version is in the works (with custom text on cover), we can hint: “We plan to introduce personalized covers soon – stay tuned!” This addresses customers who might ask if there are other titles or custom options (The Motion Books mentions more styles coming and even solicits ideas
+).
+How do I purchase one?
+Since we are directing sales to Amazon, explain: “You can purchase the Memories Book through Amazon. On our website’s product section, clicking ‘Buy Now’ will take you to our Amazon listing where you can complete your order securely (with options for Prime shipping, etc.). We use Amazon for fulfillment to ensure fast delivery and reliable service.” This sets the expectation that they’ll be buying via Amazon, and it’s intentional.
+Is there a warranty?
+We should mention if we offer any warranty (competitor likely has some standard). We could say: “Yes, we stand behind our product. OLEEK Memories Book comes with a 1-year limited warranty covering manufacturing defects. If you encounter any issues, contact us and we will assist or replace if needed.” (If the manufacturer provides a warranty we can pass on. Even if not explicitly stated by user, a warranty info makes us look professional and trustworthy.)
+How do I contact support?
+“You can email us anytime at [email protected] (example email). We strive to respond within 1 business day to all inquiries.” (We should provide an actual email or a contact form link. The competitor provides a direct email
+, which adds a personal touch.)
+Technical Questions
+(Many of these will overlap with the Learn page, but we might frame them slightly differently or with shorter answers, and then refer to the Learn page or converter as needed.) For example:
+How long can my videos be? – “Limited mainly by memory size. The 16GB model can hold roughly 3-4 hours of video files total
+ (depending on quality), and the 32GB up to ~8 hours or more. For an individual video file, try to keep it under 4GB in size. We recommend shorter highlight videos (10–20 minutes) for optimal viewing rather than one very long file.”
+What video formats does it play? – “It supports most standard formats: MP4 (best), MOV, M4V, AVI, WMV, and others
+. If a video from your phone or videographer doesn’t play, it might be an unusual format – in that case use our online converter to get it working.”
+What resolution is supported? – “Up to 1080p HD. All videos should be 1920×1080 or lower (720p is perfectly fine too)
+. It cannot play 4K or any resolution above 1080p
+. Our converter will downscale 4K videos for you.”
+What about bitrate/frame rate? – “High bitrate videos (above ~10 Mbps) or very high frame rates (60fps) could cause audio/video sync issues or lag on the 7” device
+. We suggest keeping bitrate around 5 Mbps (which is DVD-quality) and frame rate 30fps or below. Again, the converter tool will ensure these parameters are optimized. This keeps playback smooth and also helps save battery.”
+How is the sound quality and volume? – “The Memories Book has built-in speakers that are loud enough for personal viewing or a small group in a quiet room. For best results in a larger space, consider playing it in a quieter environment or plugging in external speakers. The volume can be adjusted with the side buttons. You can also change the default startup volume via the vol.txt file as described in our Tips.” (This addresses any concerns about sound; competitor reviews mentioned mixed feedback on sound, so setting expectations helps.)
+Can I add multiple videos/photos? – “Yes, you can add multiple videos. After one video finishes, the next will play automatically. You can also include photos – they will display as a slideshow. If adding photos, we recommend also adding an MP3 file for background music (the device will play it during the photo slideshow)
+.”
+Can I connect the Memories Book to a TV or larger screen? – “No, the Memories Book itself doesn’t have video output (HDMI, etc.). It’s designed as a standalone portable album. If you want to watch on a TV, you would need the video file itself and a way to play it on the TV (like a laptop or DVD player). The Memories Book’s purpose is to be a self-contained display.” (We include this since a user might wonder due to Amazon Q&A.)
+Does it come with a case or cover for protection? – “It comes in a sturdy box suitable for gifting and storage, but it doesn’t include a separate carrying case. The book itself has a durable hardcover (linen-bound) that protects the screen when closed. You can keep it on a shelf or coffee table like a photo album. If you need a protective sleeve or pouch, that would be a separate accessory (not currently offered by OLEEK).”
+Can I charge it while playing? – “Yes, you can charge the device by plugging it in, and it can play videos while charging. This can be useful if you’re showcasing videos for an extended period (though the battery alone will last about 8 hours). Just be cautious and place it near the charging source so the cable doesn’t tug.”
+Orders & Shipping (if applicable, though via Amazon much is handled there)
+Where do you ship? – Since Amazon handles this, it depends on our Amazon listing settings. We can say: “Our product is available on Amazon in [your country marketplace]. Amazon can ship internationally to many countries – please check the Amazon listing for available destinations. Generally, if Amazon ships to your country, you can order the Memories Book.” (The competitor FAQ lists specific countries for international shipping, but as a new seller we might stick to domestic initially. This answer can be generic or even refer them to Amazon’s shipping info.)
+How long does delivery take? – “If you have Amazon Prime, you can typically get it within 2-5 days (depending on your location). Amazon will provide an estimated delivery date during checkout.” Basically defer to Amazon’s info.
+What is the price? – We might list the price, but since it could change or we might run promotions, perhaps not hardcode it. Instead: “The 16GB Memories Book is around $$price (on Amazon), and the 32GB version is a bit higher. Prices may change with promotions. Check the Amazon listing for the latest price and any discounts.” (We can mention we sometimes offer coupons or seasonal deals.)
+Any discounts or promo codes? – If we have any (like a launch promo), mention it. The competitor has a page for coupons
+. We could similarly say: “Follow our social media or join our newsletter for any promotional codes. Currently, our main sales channel is Amazon, so any discounts would be applied as Amazon coupons or sale prices there.”
+Return policy? – Amazon’s standard is usually 30 days return. We should align with that: “We follow Amazon’s return policy – typically 30-day returns if the product is in new condition. If you have any issue with your Memories Book, please contact us or Amazon support to initiate a return or exchange.”
+This covers most FAQs. We should review competitor FAQs (as we did) to ensure we didn't miss anything crucial. For example, competitor had some on customization (logos, etc.)
+ – if we don’t offer custom logo or blank version yet, we can omit that. Or if we plan to allow custom orders in future, mention it as something “coming soon” or on a case-by-case basis (small batch custom branding if someone emails us for business inquiries, perhaps). Finally, at the bottom of FAQ, it’s nice to have a prompt: “Still have a question? Contact us at ...” or “Didn’t find your answer? Send us a message.” Copilot Prompt Example – FAQ Page: We can leverage Copilot to generate a bulk of Q&A by feeding it a list of Qs. For example:
+// Create an FAQ page for the OLEEK Memories Book, organized by sections.
+// Questions to include under "General": What is it, Available styles, How to contact, Purchase method...
+// Under "Technical": video length, formats, resolution, multiple videos, battery, charging, etc.
+// Under "Orders": shipping, returns, warranty, etc.
+// Provide clear, concise answers in a friendly tone.
+This prompt might result in a fairly comprehensive draft which we then tailor to ensure accuracy (Copilot might even use some of the competitor phrasing, so we must replace any mentions of The Motion Books with OLEEK and adjust for our specs).
+Purchase Flow – Amazon Integration
+As mentioned, we will not handle checkout on the site. Instead, all Buy buttons will link to Amazon. Here’s how to do this cleanly:
+Product Links: For each product version (or for a generic “Buy Now”), use the Amazon URL. If we have one Amazon listing with variations (likely the case if all our styles are under one listing), we can just link to that one listing and perhaps instruct the user to select the style. Alternatively, we could link each style’s button to the specific Amazon variation URL (Amazon often encodes the variation in the URL so that the page opens directly on that selection). For simplicity, one main link is okay – the Amazon page itself will show all styles.
+Amazon Branding: It’s a good idea to use Amazon’s recognizable branding for the button, e.g. an Amazon logo or “Available on Amazon” badge. This adds trust. Amazon provides assets for “Buy on Amazon” buttons that we can use. On our site, a button that says “Buy on Amazon” or “Order on Amazon” with the arrow icon will make it clear.
+Prime & Delivery Info: We can mention benefits like “Fulfilled by Amazon – fast Prime delivery available” near the purchase section. In the Amazon listing excerpt, they had text like “FREE delivery by [date] for Prime members” etc. We obviously won’t replicate live data, but a note that says “(Prime eligible)” is a plus.
+Affiliate Consideration: If we have our own Amazon Associate account, we could use affiliate links for our own product (though Amazon’s terms might have restrictions about self-affiliate use). If allowed, we could embed our affiliate tag in the URL for a small commission. But this is secondary; the main point is to guide the user to Amazon.
+No Cart on Site: Make sure to remove or disable any e-commerce cart elements on our website theme (since it might be a Next.js app, not a prebuilt store, we likely won’t have a cart anyway). This avoids confusion. Every purchase click goes out to Amazon.
+Overall, this approach simplifies things (inventory, payment, etc., all handled through Amazon). The site basically serves as a detailed brochure and support hub, while Amazon is the storefront.
+Technical Implementation Notes
+Now, some recommendations on how to implement the above in Next.js in a professional manner:
+Technology Stack: Next.js (React) for the frontend, perhaps with Node (if needed for any server-side). Host on Vercel (Next.js default) or another reliable platform. Using Next gives us server-side rendering for good SEO on content pages like FAQ, which is important for discoverability (so people searching for “wedding video book convert” might find our site).
+Design and UI: We should aim for a modern, clean design consistent with a wedding/memories theme. Soft colors (white, cream, pastel) and elegant fonts (serif for headings perhaps) can match the “timeless keepsake” vibe. Include high-quality images: product photos, maybe a screenshot of a video playing on the device, etc. If possible, embed a short demo video (maybe on the homepage) showing someone flipping open the book and it playing – this immediately communicates the concept. But keep videos short or lazy-loaded to not slow the site.
+Mobile Responsiveness: Ensure the layout is mobile-friendly. Many users may visit via phone, and they should still be able to read about the product and even perhaps upload a video for conversion (though converting on a phone might be less common due to file sizes, but the form should still work on mobile by allowing file selection from storage).
+Using Copilot for Code: GitHub Copilot can significantly speed up development:
+Use it to scaffold components/pages as noted in earlier prompts.
+It can also assist in writing CSS or styled-components for layout. For example, if using a CSS-in-JS solution or Tailwind, you can comment your intent and Copilot will suggest styles.
+Keep prompts specific and iterative. For instance, start by prompting the basic structure (as shown in examples), then refine by adding comments like // Add a section for testimonials or // Style the features list with icons.
+Always review the code Copilot generates for correctness and security. Especially for the converter – ensure that the file handling is done safely (it will be client-side, so less risk of server issues, but memory management is something to watch for with large files in the browser).
+Video Conversion (ffmpeg.wasm) Integration: We will use the @ffmpeg/ffmpeg package (which wraps ffmpeg.wasm). Some important points:
+Load the ffmpeg core on demand (as discussed). Perhaps create a React hook or utility function for running the conversion.
+The conversion command will look something like: ffmpeg -i inputFile -vf "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2" -c:v libx264 -b:v 5M -maxrate 8M -bufsize 8M -r 30 -c:a aac -b:a 128k output.mp4. This example does: scale down to 720p if larger, pad to maintain aspect, set video bitrate ~5M (with max 8M), frame rate 30, audio to AAC 128 kbps. We can adjust these parameters as needed. This command can be complex, but Copilot or online resources can help form it. We might also offer a simpler approach: if input is <=1080p and H.264, maybe we pass it through without re-encoding (copy) to preserve quality; otherwise re-encode. But implementing conditional logic might be too much initially – re-encoding everything to a known good format could be fine (with a slight quality hit potentially).
+Performance: Large videos (e.g. 2-hour wedding video) might be slow to convert in browser and could even exhaust memory. For now, we could state a recommended limit (maybe in the Convert page text, say up to 2GB files work best). If a user has a huge file, they might opt to use a desktop app like Handbrake instead, or send to us. We should be prepared for the converter possibly failing on extremely large inputs due to browser limits.
+Test the conversion on different browsers (Chrome, Firefox, Safari). Safari has had issues with some WASM threads, but ffmpeg.wasm does have a single-thread mode. We might need to use the single-threaded build if Safari is a target, for compatibility.
+Server-Side vs Client-Side Conversion: We chose client-side to avoid storing data (and avoid needing a beefy server to encode videos). This is good for privacy and cost. If in the future we offer an upload service (like competitor’s email result), we would need a server with ffmpeg or an API service. That would require handling file uploads (possibly to cloud storage), processing, and emailing – which is a bigger infrastructure. We can revisit that if demand arises. For now, the in-browser solution is simpler to implement and aligns with the privacy promise.
+Recommendations for the Server/Backend: Even if we aren’t doing video processing on the server, we still have some backend considerations:
+We might have a contact form that sends emails – for that, a serverless function or API route can use something like Nodemailer or an email service API.
+If we expand to direct sales or registrations (user accounts), we’d need backend work (but likely not needed yet).
+If any analytics or logging is needed (to see how many conversions are done, etc.), we could use a service or just rely on client-side analytics (Google Analytics or plausible.io for privacy-focused tracking).
+Ensure we have a robust Privacy Policy page (even if brief, stating what data we collect – which in this case is minimal: mostly none except maybe an email if they sign up for newsletter or contact us). Also a Terms of Use page for the general website usage. Copilot can help draft these, but we should have them for completeness (often in footer).
+Professionalism & Testing: Finally, to ensure everything is professional:
+Proofread all text content (Copilot and even competitor content may have minor errors or phrasing issues). Make sure tone is consistent (friendly but authoritative).
+Use citations and references internally (like we did here) to ensure accuracy of any claims (e.g., battery life). On the live site, we won't show citations, but since we base info on competitor’s proven data, we know it's accurate. For example, battery life 4 hours came from competitor’s spec
+, so stating ~8 hours for double capacity is reasonable.
+Check all links (especially Amazon links) to be sure they go to the right product. Nothing looks less professional than broken links.
+Optimize images (use Next.js Image component for automatic responsive sizing and lazy loading).
+Consider accessibility (ALT text for images, proper headings, high-contrast text for readability, etc.). This is part of professionalism and also broadens our audience.
+Future “Ask OLEEK” Assistant (optional idea): You mentioned possibly integrating "that guy" (referring to Amazon’s Rufus AI). We could plan to add an AI Q&A chatbot on the site that acts like “Ask OLEEK” for product questions. This could be powered by something like OpenAI or a fine-tuned model on our FAQ data. For instance, using a script that ingests our FAQ and allows users to type a question, getting an AI-generated answer based on our content. This would be a nice-to-have feature to mimic Amazon’s interactive Q&A. It requires some development (and possibly costs for AI API), so it can be a future enhancement. In the meantime, a well-structured FAQ and search feature on the FAQ page can help users find info quickly.
+By following this plan and utilizing GitHub Copilot to assist with coding and content generation (under our careful guidance and editing), we can build the OLEEK website efficiently and with a high degree of professionalism. The end result will be a site that not only matches the competitor’s offerings but exceeds them in clarity, features, and user trust. Finally, always keep the content up-to-date. As we get real user questions and feedback, update the FAQ, and as we release new versions (say, a future model with different specs or a new cover design), reflect that on the site. A well-maintained site inspires confidence that our brand is active and responsive. Sources:
+The Motion Books (competitor) – product features and specs
+The Motion Books – online converter description
+ and upload terms
+The Motion Books – video format guidelines and troubleshooting
+FFmpeg.wasm (client-side conversion) benefits
+ for privacy and performance.
+The Motion Books – FAQ and Learn pages for usage instructions and best practices
+.
+Citations
+
+A Wedding Video Book To Showcase Your Wedding Memories!
+
+https://themotionbooks.com/wedding-collection/?srsltid=AfmBOorN77H_2sj9q1d4_CdVPnUnL9EfN7ZovMC6ugSjizPk47R2fB2w
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+A Wedding Video Book To Showcase Your Wedding Memories!
+
+https://themotionbooks.com/wedding-collection/?srsltid=AfmBOorN77H_2sj9q1d4_CdVPnUnL9EfN7ZovMC6ugSjizPk47R2fB2w
+
+A Wedding Video Book To Showcase Your Wedding Memories!
+
+https://themotionbooks.com/wedding-collection/?srsltid=AfmBOorN77H_2sj9q1d4_CdVPnUnL9EfN7ZovMC6ugSjizPk47R2fB2w
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+A Wedding Video Book To Showcase Your Wedding Memories!
+
+https://themotionbooks.com/wedding-collection/?srsltid=AfmBOorN77H_2sj9q1d4_CdVPnUnL9EfN7ZovMC6ugSjizPk47R2fB2w
+
+A Wedding Video Book To Showcase Your Wedding Memories!
+
+https://themotionbooks.com/wedding-collection/?srsltid=AfmBOorN77H_2sj9q1d4_CdVPnUnL9EfN7ZovMC6ugSjizPk47R2fB2w
+
+A Wedding Video Book To Showcase Your Wedding Memories!
+
+https://themotionbooks.com/wedding-collection/?srsltid=AfmBOorN77H_2sj9q1d4_CdVPnUnL9EfN7ZovMC6ugSjizPk47R2fB2w
+
+A Wedding Video Book To Showcase Your Wedding Memories!
+
+https://themotionbooks.com/wedding-collection/?srsltid=AfmBOorN77H_2sj9q1d4_CdVPnUnL9EfN7ZovMC6ugSjizPk47R2fB2w
+
+Convert Video File(s) - The Motion Books
+
+https://themotionbooks.com/convert/?srsltid=AfmBOopWBY8bDnzC4pnZTINqJU7yNmmorcmnD-JtIysPGu_mBBPQQnaQ
+
+Convert Videos that work perfectly on The Motion Books!
+
+https://themotionbooks.com/blog/how-to-convert-videos-that-work-perfectly-on-the-motion-books/?srsltid=AfmBOoqDI2ZhlnhkTVi1kribQj9h1FBDhaAtXw8pDd_I4DadmVahYpVx
+
+Upload and Convert Terms and Conditions – The Motion Books
+
+https://themotionbooks.com/upload-convert-terms-and-conditions/?srsltid=AfmBOor6isKbP_o6oCK-LxFRE9ss_DyzoZWFrtpeEX-yiV65RGiaPIGJ
+
+Building a Privacy-First Video to Audio Converter with FFmpeg.wasm - DEV Community
+
+https://dev.to/felix-tech/building-a-privacy-first-video-to-audio-converter-with-ffmpegwasm-1kd0
+
+Convert Videos that work perfectly on The Motion Books!
+
+https://themotionbooks.com/blog/how-to-convert-videos-that-work-perfectly-on-the-motion-books/?srsltid=AfmBOoqDI2ZhlnhkTVi1kribQj9h1FBDhaAtXw8pDd_I4DadmVahYpVx
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+Convert Video File(s) - The Motion Books
+
+https://themotionbooks.com/convert/?srsltid=AfmBOopWBY8bDnzC4pnZTINqJU7yNmmorcmnD-JtIysPGu_mBBPQQnaQ
+
+Building a Privacy-First Video to Audio Converter with FFmpeg.wasm - DEV Community
+
+https://dev.to/felix-tech/building-a-privacy-first-video-to-audio-converter-with-ffmpegwasm-1kd0
+
+Upload and Convert Terms and Conditions – The Motion Books
+
+https://themotionbooks.com/upload-convert-terms-and-conditions/?srsltid=AfmBOor6isKbP_o6oCK-LxFRE9ss_DyzoZWFrtpeEX-yiV65RGiaPIGJ
+
+Upload and Convert Terms and Conditions – The Motion Books
+
+https://themotionbooks.com/upload-convert-terms-and-conditions/?srsltid=AfmBOor6isKbP_o6oCK-LxFRE9ss_DyzoZWFrtpeEX-yiV65RGiaPIGJ
+
+Upload and Convert Terms and Conditions – The Motion Books
+
+https://themotionbooks.com/upload-convert-terms-and-conditions/?srsltid=AfmBOor6isKbP_o6oCK-LxFRE9ss_DyzoZWFrtpeEX-yiV65RGiaPIGJ
+
+Upload and Convert Terms and Conditions – The Motion Books
+
+https://themotionbooks.com/upload-convert-terms-and-conditions/?srsltid=AfmBOor6isKbP_o6oCK-LxFRE9ss_DyzoZWFrtpeEX-yiV65RGiaPIGJ
+
+Upload and Convert Terms and Conditions – The Motion Books
+
+https://themotionbooks.com/upload-convert-terms-and-conditions/?srsltid=AfmBOor6isKbP_o6oCK-LxFRE9ss_DyzoZWFrtpeEX-yiV65RGiaPIGJ
+
+Upload and Convert Terms and Conditions – The Motion Books
+
+https://themotionbooks.com/upload-convert-terms-and-conditions/?srsltid=AfmBOor6isKbP_o6oCK-LxFRE9ss_DyzoZWFrtpeEX-yiV65RGiaPIGJ
+
+Upload and Convert Terms and Conditions – The Motion Books
+
+https://themotionbooks.com/upload-convert-terms-and-conditions/?srsltid=AfmBOor6isKbP_o6oCK-LxFRE9ss_DyzoZWFrtpeEX-yiV65RGiaPIGJ
+
+Upload and Convert Terms and Conditions – The Motion Books
+
+https://themotionbooks.com/upload-convert-terms-and-conditions/?srsltid=AfmBOor6isKbP_o6oCK-LxFRE9ss_DyzoZWFrtpeEX-yiV65RGiaPIGJ
+
+Upload and Convert Terms and Conditions – The Motion Books
+
+https://themotionbooks.com/upload-convert-terms-and-conditions/?srsltid=AfmBOor6isKbP_o6oCK-LxFRE9ss_DyzoZWFrtpeEX-yiV65RGiaPIGJ
+
+Learn How To Use The Motion Books - Video Book Tutorial
+
+https://themotionbooks.com/learn/?srsltid=AfmBOor3SIj6sBUZjH27iYa1jpNICFhtLLQv2ani-zo5RgrUE7OJNUTc
+
+Learn How To Use The Motion Books - Video Book Tutorial
+
+https://themotionbooks.com/learn/?srsltid=AfmBOor3SIj6sBUZjH27iYa1jpNICFhtLLQv2ani-zo5RgrUE7OJNUTc
+
+Learn How To Use The Motion Books - Video Book Tutorial
+
+https://themotionbooks.com/learn/?srsltid=AfmBOor3SIj6sBUZjH27iYa1jpNICFhtLLQv2ani-zo5RgrUE7OJNUTc
+
+Learn How To Use The Motion Books - Video Book Tutorial
+
+https://themotionbooks.com/learn/?srsltid=AfmBOor3SIj6sBUZjH27iYa1jpNICFhtLLQv2ani-zo5RgrUE7OJNUTc
+
+Learn How To Use The Motion Books - Video Book Tutorial
+
+https://themotionbooks.com/learn/?srsltid=AfmBOor3SIj6sBUZjH27iYa1jpNICFhtLLQv2ani-zo5RgrUE7OJNUTc
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+Learn How To Use The Motion Books - Video Book Tutorial
+
+https://themotionbooks.com/learn/?srsltid=AfmBOor3SIj6sBUZjH27iYa1jpNICFhtLLQv2ani-zo5RgrUE7OJNUTc
+
+Learn How To Use The Motion Books - Video Book Tutorial
+
+https://themotionbooks.com/learn/?srsltid=AfmBOor3SIj6sBUZjH27iYa1jpNICFhtLLQv2ani-zo5RgrUE7OJNUTc
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+Learn How To Use The Motion Books - Video Book Tutorial
+
+https://themotionbooks.com/learn/?srsltid=AfmBOor3SIj6sBUZjH27iYa1jpNICFhtLLQv2ani-zo5RgrUE7OJNUTc
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+
+FAQ – The Motion Books
+
+https://themotionbooks.com/faq/?srsltid=AfmBOopInAe0u8dG-p7zaR0tWTowVKwJnMazzxWh_nbPcDIpJB17TxQv
+All Sources
