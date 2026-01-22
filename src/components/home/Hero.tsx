@@ -52,7 +52,7 @@ export default function Hero() {
               src="/images/main-image-our-wedding-book.jpg"
               alt="OLEEK Memories Book - Our Wedding video album open and playing"
               width={600}
-              height={400}
+              height={300}
               priority
               className="rounded-lg shadow-xl"
             />
