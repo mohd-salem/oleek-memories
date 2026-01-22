@@ -20,7 +20,7 @@ export async function getMediaConvertClient(): Promise<MediaConvertClient> {
   if (!cachedEndpoint) {
     const command = new DescribeEndpointsCommand({});
     const response = await tempClient.send(command);
-    cachedEndpoint = response.Endpoints?.[0]?.Url;
+    cachedEndpoint = response.Endpoints?.[0]?.Url ?? null;
     
     if (!cachedEndpoint) {
       throw new Error('Failed to retrieve MediaConvert endpoint');
