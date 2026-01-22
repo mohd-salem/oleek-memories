@@ -71,7 +71,7 @@ export default function ProductVersions() {
               {/* Product Image - Fixed height */}
               <div className="relative h-48 mb-4 flex-shrink-0">
                 <Image 
-                  src="/images/main-image-our-wedding-book.jpg"
+                  src="/images/7.jpg"
                   alt={product.title}
                   fill
                   className="object-cover rounded"
@@ -94,7 +94,7 @@ export default function ProductVersions() {
                 
                 {/* Button pushed to bottom */}
                 <ButtonLink 
-                  href="https://www.amazon.com"
+                  href="https://www.amazon.com/oleek"
                   external
                   variant="amazon"
                   size="sm"

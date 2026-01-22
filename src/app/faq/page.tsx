@@ -74,7 +74,7 @@ export default function FAQPage() {
               <p className="mb-3">
                 We sell exclusively through Amazon. This allows us to offer Prime shipping, easy returns, and the trusted Amazon checkout experience.
               </p>
-              <ButtonLink href="https://www.amazon.com" external variant="amazon" size="sm">
+              <ButtonLink href="https://www.amazon.com/oleek" external variant="amazon" size="sm">
                 Shop on Amazon
               </ButtonLink>
             </AccordionItem>
