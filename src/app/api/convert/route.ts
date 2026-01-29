@@ -6,7 +6,7 @@ import { jobStore } from '@/lib/aws/job-store';
 
 export async function POST(request: NextRequest) {
   try {
-    const { fileId, inputKey } = await request.json();
+    const { fileId, inputKey, email } = await request.json();
 
     if (!fileId || !inputKey) {
       return NextResponse.json(
@@ -115,6 +115,8 @@ export async function POST(request: NextRequest) {
       outputKey: `${fileId}/output.mp4`,
       status: 'SUBMITTED' as const,
       createdAt: Date.now(),
+      email: email || undefined,
+      emailSent: false,
     };
     jobStore.set(fileId, jobInfo);
 

@@ -11,8 +11,10 @@ export interface JobInfo {
   status: 'SUBMITTED' | 'PROGRESSING' | 'COMPLETE' | 'ERROR' | 'CANCELED';
   progress?: number;
   error?: string;
+  email?: string; // Optional email for notification
   createdAt: number;
   completedAt?: number;
+  emailSent?: boolean; // Track if notification was sent
 }
 
 // Use global variable to persist across Next.js hot reloads in development

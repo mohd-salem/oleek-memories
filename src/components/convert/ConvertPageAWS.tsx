@@ -8,6 +8,7 @@ type ConversionStatus = 'idle' | 'uploading' | 'converting' | 'complete' | 'erro
 
 export default function ConvertPageAWS() {
   const [file, setFile] = useState<File | null>(null);
+  const [email, setEmail] = useState<string>('');
   const [status, setStatus] = useState<ConversionStatus>('idle');
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -64,11 +65,11 @@ export default function ConvertPageAWS() {
     return { fileId, key };
   };
 
-  const startConversion = async (fileId: string, inputKey: string) => {
+  const startConversion = async (fileId: string, inputKey: string, email?: string) => {
     const response = await fetch('/api/convert', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fileId, inputKey }),
+      body: JSON.stringify({ fileId, inputKey, email: email || undefined }),
     });
 
     if (!response.ok) {
@@ -132,7 +133,7 @@ export default function ConvertPageAWS() {
       setStatus('converting');
       
       // Start conversion
-      await startConversion(fileId, key);
+      await startConversion(fileId, key, email || undefined);
 
       // Poll for status
       pollStatus(fileId);
@@ -165,12 +166,11 @@ export default function ConvertPageAWS() {
           </p>
         </div>
 
-        {/* Security Banner */}
-        <div className="bg-gold-50 border border-gold-200 rounded-lg p-4 mb-8 flex items-start gap-3">
-          <Shield className="w-5 h-5 text-gold-600 flex-shrink-0 mt-0.5" />
+        {/* How It Works Banner */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8 flex items-start gap-3">
+          <Shield className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
           <div className="text-sm text-charcoal-700">
-            <strong className="font-semibold">Secure & Private:</strong> Your videos are processed
-            securely using AWS cloud infrastructure and automatically deleted after 24 hours. No account required.
+            <strong className="font-semibold">How It Works:</strong> You upload your video (required wait), then conversion happens in our AWS cloud servers. Enter your email and you can leave this page — we'll send you the download link when ready (~30 sec). Links valid for 24 hours.
           </div>
         </div>
 
@@ -201,31 +201,49 @@ export default function ConvertPageAWS() {
               </div>
 
               {file && (
-                <div className="bg-cream-50 rounded-lg p-4 mb-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-semibold text-charcoal-800">{file.name}</p>
-                      <p className="text-sm text-charcoal-600">
-                        {(file.size / (1024 * 1024)).toFixed(2)} MB
-                      </p>
+                <>
+                  <div className="bg-cream-50 rounded-lg p-4 mb-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-semibold text-charcoal-800">{file.name}</p>
+                        <p className="text-sm text-charcoal-600">
+                          {(file.size / (1024 * 1024)).toFixed(2)} MB
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setFile(null)}
+                        className="text-charcoal-500 hover:text-charcoal-700"
+                      >
+                        <XCircle className="w-5 h-5" />
+                      </button>
                     </div>
-                    <button
-                      onClick={() => setFile(null)}
-                      className="text-charcoal-500 hover:text-charcoal-700"
-                    >
-                      <XCircle className="w-5 h-5" />
-                    </button>
                   </div>
-                </div>
-              )}
 
-              {file && (
-                <button
-                  onClick={handleConvert}
-                  className="w-full bg-gold-500 hover:bg-gold-600 text-white font-semibold py-3 rounded-lg transition-colors"
-                >
-                  Start Conversion
-                </button>
+                  {/* Email Input (Optional) */}
+                  <div className="mb-6">
+                    <label htmlFor="email" className="block text-sm font-medium text-charcoal-700 mb-2">
+                      Email (Optional)
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="your@email.com"
+                      className="w-full px-4 py-2 border border-charcoal-200 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
+                    />
+                    <p className="text-xs text-charcoal-500 mt-1">
+                      💡 <strong>Tip:</strong> Enter your email and you can leave this page. We'll email you the download link when ready (usually ~30 seconds)
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={handleConvert}
+                    className="w-full bg-gold-500 hover:bg-gold-600 text-white font-semibold py-3 rounded-lg transition-colors"
+                  >
+                    Start Conversion
+                  </button>
+                </>
               )}
             </>
           )}
@@ -237,7 +255,7 @@ export default function ConvertPageAWS() {
                 Uploading your video...
               </p>
               <p className="text-sm text-charcoal-600">
-                Preparing for conversion
+                Please wait while we upload your file to secure cloud storage
               </p>
             </div>
           )}
@@ -246,7 +264,7 @@ export default function ConvertPageAWS() {
             <div className="text-center py-8">
               <Loader2 className="w-12 h-12 text-gold-500 animate-spin mx-auto mb-4" />
               <p className="text-lg font-semibold text-charcoal-800 mb-2">
-                Converting your video...
+                Converting your video in the cloud...
               </p>
               <div className="w-full bg-charcoal-100 rounded-full h-2 mb-2">
                 <div
@@ -254,19 +272,43 @@ export default function ConvertPageAWS() {
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <p className="text-sm text-charcoal-600">{progress}% complete</p>
+              <p className="text-sm text-charcoal-600 mb-3">{progress}% complete</p>
+              
+              {email ? (
+                <div className="bg-gold-50 border border-gold-200 rounded-lg p-4 mt-4">
+                  <p className="text-sm text-charcoal-700">
+                    ✅ <strong>You can leave this page!</strong><br/>
+                    We'll email the download link to <strong>{email}</strong> when ready.<br/>
+                    <span className="text-xs text-charcoal-600">Link valid for 24 hours</span>
+                  </p>
+                </div>
+              ) : (
+                <p className="text-xs text-charcoal-500 mt-3">
+                  Stay on this page to download immediately, or refresh later to check status
+                </p>
+              )}
             </div>
           )}
 
           {status === 'complete' && downloadUrl && (
             <div className="text-center py-8">
               <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
-              <p className="text-xl font-bold text-charcoal-900 mb-4">
-                Conversion Complete!
+              <p className="text-xl font-bold text-charcoal-900 mb-2">
+                Conversion Complete! 🎉
               </p>
               <p className="text-charcoal-600 mb-6">
                 Your video is ready for OLEEK memory books
               </p>
+              
+              {email && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 max-w-md mx-auto">
+                  <p className="text-sm text-charcoal-700">
+                    📧 A download link has also been sent to <strong>{email}</strong><br/>
+                    <span className="text-xs text-charcoal-600">Check your inbox (and spam folder)</span>
+                  </p>
+                </div>
+              )}
+              
               <div className="flex gap-4 justify-center">
                 <a
                   href={downloadUrl}
@@ -274,7 +316,7 @@ export default function ConvertPageAWS() {
                   className="bg-gold-500 hover:bg-gold-600 text-white font-semibold px-6 py-3 rounded-lg inline-flex items-center gap-2 transition-colors"
                 >
                   <Download className="w-5 h-5" />
-                  Download Video
+                  Download Now
                 </a>
                 <button
                   onClick={handleReset}
@@ -284,7 +326,7 @@ export default function ConvertPageAWS() {
                 </button>
               </div>
               <p className="text-xs text-charcoal-500 mt-4">
-                Download link expires in 1 hour
+                💡 Download link valid for 24 hours (both here and in email)
               </p>
             </div>
           )}
