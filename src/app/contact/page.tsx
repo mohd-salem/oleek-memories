@@ -37,10 +37,10 @@ export default function ContactPage() {
                 For technical support, product questions, or assistance with video conversion, email us at:
               </p>
               <a 
-                href="mailto:support@oleek.com" 
+                href="mailto:support@oleek.us" 
                 className="text-gold-600 hover:text-gold-700 font-medium text-lg"
               >
-                support@oleek.com
+                support@oleek.us
               </a>
               <p className="text-sm text-slate-600 mt-2">
                 We typically respond within 1 business day.

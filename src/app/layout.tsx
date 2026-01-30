@@ -20,7 +20,7 @@ const playfair = Playfair_Display({
 
 // Root metadata - provides defaults for all pages
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.oleek.com'), // Update with actual domain
+  metadataBase: new URL('https://www.oleek.us'),
   title: {
     default: 'OLEEK Memories Book | Premium Wedding Video Keepsake',
     template: '%s | OLEEK Memories Book',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://www.oleek.com',
+    url: 'https://www.oleek.us',
     siteName: 'OLEEK Memories Book',
     title: 'OLEEK Memories Book | Premium Wedding Video Keepsake',
     description: 'A premium video album with a 7" HD screen. Your wedding memories, beautifully preserved.',

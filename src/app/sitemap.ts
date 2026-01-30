@@ -1,8 +1,8 @@
 import type { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.oleek.com' // Update with actual domain
-  
+  const baseUrl = 'https://www.oleek.us'
+
   return [
     {
       url: baseUrl,
