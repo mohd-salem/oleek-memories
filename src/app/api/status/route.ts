@@ -83,12 +83,39 @@ export async function GET(request: NextRequest) {
     if (status === 'COMPLETE' && metadataEmail && !emailSent && metadataFileId) {
       console.log('🔔 Attempting to send email notification to:', metadataEmail);
       try {
-        // Get download URL
-        const downloadResponse = await fetch(
-          `${request.nextUrl.origin}/api/download?fileId=${metadataFileId}`
-        );
-        if (downloadResponse.ok) {
-          const { downloadUrl, filename } = await downloadResponse.json();
+        // Retry getting download URL with delay (S3 might need a moment after MediaConvert completes)
+        let downloadUrl = null;
+        let filename = null;
+        
+        for (let attempt = 1; attempt <= 3; attempt++) {
+          const downloadResponse = await fetch(
+            `${request.nextUrl.origin}/api/download?fileId=${metadataFileId}`
+          );
+          
+          if (downloadResponse.ok) {
+            const data = await downloadResponse.json();
+            downloadUrl = data.downloadUrl;
+            filename = data.filename;
+            console.log(`✅ Got download URL on attempt ${attempt}`);
+            break;
+          } else if (attempt < 3) {
+            console.log(`⏳ Download URL not ready, retrying (attempt ${attempt}/3)...`);
+            // Wait 2 seconds before retry
+            await new Promise(resolve => setTimeout(resolve, 2000));
+          } else {
+            const errorText = await downloadResponse.text();
+            console.error('❌ Failed to get download URL after 3 attempts:', {
+              status: downloadResponse.status,
+              fileId: metadataFileId,
+              error: errorText,
+            });
+          }
+        }
+        
+        if (!downloadUrl || !filename) {
+          console.error('❌ Could not get download URL for email - will retry on next status poll');
+          // Don't throw - let it retry on next poll
+        } else {
           
           console.log('📧 Sending email notification...', {
             email: metadataEmail,
@@ -119,13 +146,6 @@ export async function GET(request: NextRequest) {
             const errorData = await notifyResponse.json();
             console.error('❌ Failed to send email notification:', errorData);
           }
-        } else {
-          const errorText = await downloadResponse.text();
-          console.error('❌ Failed to get download URL for email:', {
-            status: downloadResponse.status,
-            fileId: metadataFileId,
-            error: errorText,
-          });
         }
       } catch (emailError) {
         console.error('❌ Email notification error:', emailError);
