@@ -120,7 +120,12 @@ export async function GET(request: NextRequest) {
             console.error('❌ Failed to send email notification:', errorData);
           }
         } else {
-          console.error('❌ Failed to get download URL for email');
+          const errorText = await downloadResponse.text();
+          console.error('❌ Failed to get download URL for email:', {
+            status: downloadResponse.status,
+            fileId: metadataFileId,
+            error: errorText,
+          });
         }
       } catch (emailError) {
         console.error('❌ Email notification error:', emailError);

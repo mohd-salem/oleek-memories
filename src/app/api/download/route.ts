@@ -17,13 +17,22 @@ export async function GET(request: NextRequest) {
     // MediaConvert always outputs to ${fileId}/output.mp4
     const outputKey = `${fileId}/output.mp4`;
 
+    console.log('🔍 Checking for file:', { fileId, outputKey, bucket: OUTPUT_BUCKET });
+
     // Check if file exists
     try {
       await s3Client.send(new HeadObjectCommand({
         Bucket: OUTPUT_BUCKET,
         Key: outputKey,
       }));
+      console.log('✅ File found in S3:', outputKey);
     } catch (err) {
+      console.error('❌ File not found in S3:', { 
+        fileId, 
+        outputKey, 
+        bucket: OUTPUT_BUCKET,
+        error: err instanceof Error ? err.message : String(err)
+      });
       return NextResponse.json(
         { error: 'Output file not found. Conversion may not be complete yet.' },
         { status: 404 }
