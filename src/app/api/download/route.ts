@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GetObjectCommand, HeadObjectCommand } from '@aws-sdk/client-s3';
+import { GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { s3Client, OUTPUT_BUCKET } from '@/lib/aws/s3-client';
 
@@ -14,30 +14,42 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // MediaConvert always outputs to ${fileId}/output.mp4
-    const outputKey = `${fileId}/output.mp4`;
+    console.log('🔍 Looking for output files in folder:', { fileId, bucket: OUTPUT_BUCKET });
 
-    console.log('🔍 Checking for file:', { fileId, outputKey, bucket: OUTPUT_BUCKET });
+    // List all files in the output folder
+    const listCommand = new ListObjectsV2Command({
+      Bucket: OUTPUT_BUCKET,
+      Prefix: `${fileId}/`,
+    });
 
-    // Check if file exists
-    try {
-      await s3Client.send(new HeadObjectCommand({
-        Bucket: OUTPUT_BUCKET,
-        Key: outputKey,
-      }));
-      console.log('✅ File found in S3:', outputKey);
-    } catch (err) {
-      console.error('❌ File not found in S3:', { 
-        fileId, 
-        outputKey, 
-        bucket: OUTPUT_BUCKET,
-        error: err instanceof Error ? err.message : String(err)
+    const listResponse = await s3Client.send(listCommand);
+    
+    console.log('📁 Files found in S3:', {
+      fileId,
+      files: listResponse.Contents?.map(obj => obj.Key) || [],
+      count: listResponse.Contents?.length || 0,
+    });
+
+    // Find MP4 files
+    const mp4Files = listResponse.Contents?.filter(
+      (obj) => obj.Key?.endsWith('.mp4')
+    );
+
+    if (!mp4Files || mp4Files.length === 0) {
+      console.error('❌ No MP4 files found in folder:', {
+        fileId,
+        prefix: `${fileId}/`,
+        allFiles: listResponse.Contents?.map(obj => obj.Key),
       });
       return NextResponse.json(
         { error: 'Output file not found. Conversion may not be complete yet.' },
         { status: 404 }
       );
     }
+
+    // Use the first MP4 file found
+    const outputKey = mp4Files[0].Key!;
+    console.log('✅ Using output file:', outputKey);
 
     // Generate download filename
     const downloadFilename = `${fileId}-converted.mp4`;
