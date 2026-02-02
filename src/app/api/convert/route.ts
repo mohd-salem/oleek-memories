@@ -23,6 +23,10 @@ export async function POST(request: NextRequest) {
     // Create MediaConvert job with OLEEK specs
     const command = new CreateJobCommand({
       Role: MEDIACONVERT_ROLE_ARN,
+      UserMetadata: {
+        fileId: fileId,
+        email: email || '',
+      },
       Settings: {
         Inputs: [
           {

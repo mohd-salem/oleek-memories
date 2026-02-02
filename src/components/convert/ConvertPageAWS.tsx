@@ -13,6 +13,7 @@ export default function ConvertPageAWS() {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [fileId, setFileId] = useState<string | null>(null);
+  const [jobId, setJobId] = useState<string | null>(null);
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,10 +80,10 @@ export default function ConvertPageAWS() {
     return response.json();
   };
 
-  const pollStatus = async (fileId: string) => {
+  const pollStatus = async (fileId: string, jobId: string) => {
     const interval = setInterval(async () => {
       try {
-        const response = await fetch(`/api/status?fileId=${fileId}`);
+        const response = await fetch(`/api/status?fileId=${fileId}&jobId=${jobId}`);
         if (!response.ok) {
           clearInterval(interval);
           setStatus('error');
@@ -133,10 +134,11 @@ export default function ConvertPageAWS() {
       setStatus('converting');
       
       // Start conversion
-      await startConversion(fileId, key, email || undefined);
+      const { jobId } = await startConversion(fileId, key, email || undefined);
+      setJobId(jobId);
 
       // Poll for status
-      pollStatus(fileId);
+      pollStatus(fileId, jobId);
     } catch (err) {
       console.error('Conversion error:', err);
       setStatus('error');
@@ -148,6 +150,7 @@ export default function ConvertPageAWS() {
     setFile(null);
     setStatus('idle');
     setProgress(0);
+    setJobId(null);
     setError(null);
     setFileId(null);
     setDownloadUrl(null);

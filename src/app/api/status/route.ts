@@ -5,29 +5,45 @@ import { jobStore } from '@/lib/aws/job-store';
 
 export async function GET(request: NextRequest) {
   try {
-    const fileId = request.nextUrl.searchParams.get('fileId');
+    const searchParams = request.nextUrl.searchParams;
+    const fileId = searchParams.get('fileId');
+    const jobId = searchParams.get('jobId');
 
-    if (!fileId) {
+    // Support both fileId (legacy) and jobId (new approach)
+    if (!fileId && !jobId) {
       return NextResponse.json(
-        { error: 'Missing fileId parameter' },
+        { error: 'Missing fileId or jobId parameter' },
         { status: 400 }
-      );
-    }
-
-    const jobInfo = jobStore.get(fileId);
-
-    if (!jobInfo) {
-      return NextResponse.json(
-        { error: 'Job not found' },
-        { status: 404 }
       );
     }
 
     // Get MediaConvert client with correct endpoint
     const mediaConvertClient = await getMediaConvertClient();
 
+    // Try to get job info from store first (for backward compatibility)
+    let actualJobId = jobId;
+    let actualFileId = fileId;
+    let storedEmail: string | undefined;
+    let emailSent = false;
+
+    if (fileId) {
+      const jobInfo = jobStore.get(fileId);
+      if (jobInfo) {
+        actualJobId = jobInfo.jobId;
+        storedEmail = jobInfo.email;
+        emailSent = jobInfo.emailSent || false;
+      }
+    }
+
+    if (!actualJobId) {
+      return NextResponse.json(
+        { error: 'Job not found - please refresh and try converting again' },
+        { status: 404 }
+      );
+    }
+
     // Query MediaConvert for current status
-    const command = new GetJobCommand({ Id: jobInfo.jobId });
+    const command = new GetJobCommand({ Id: actualJobId });
     const response = await mediaConvertClient.send(command);
 
     const job = response.Job;
@@ -38,32 +54,44 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // Get fileId and email from job metadata
+    const metadataFileId = job.UserMetadata?.fileId || actualFileId;
+    const metadataEmail = job.UserMetadata?.email || storedEmail;
+
     const status = job.Status!;
     const progress = job.JobPercentComplete || 0;
 
-    // Update job store
-    const updatedJobInfo = {
-      ...jobInfo,
-      status: status as any,
-      progress,
-      completedAt: status === 'COMPLETE' ? Date.now() : undefined,
-      error: job.ErrorMessage,
-    };
-    jobStore.set(fileId, updatedJobInfo);
+    // Update job store if we have fileId (for email tracking)
+    if (metadataFileId) {
+      const updatedJobInfo = {
+        jobId: actualJobId,
+        fileId: metadataFileId,
+        inputKey: '', // Not needed for status check
+        outputKey: `${metadataFileId}/output.mp4`,
+        status: status as any,
+        progress,
+        createdAt: Date.now(),
+        completedAt: status === 'COMPLETE' ? Date.now() : undefined,
+        error: job.ErrorMessage,
+        email: metadataEmail,
+        emailSent,
+      };
+      jobStore.set(metadataFileId, updatedJobInfo);
+    }
 
     // Send email notification if conversion is complete and email provided
-    if (status === 'COMPLETE' && jobInfo.email && !jobInfo.emailSent) {
-      console.log('🔔 Attempting to send email notification to:', jobInfo.email);
+    if (status === 'COMPLETE' && metadataEmail && !emailSent && metadataFileId) {
+      console.log('🔔 Attempting to send email notification to:', metadataEmail);
       try {
         // Get download URL
         const downloadResponse = await fetch(
-          `${request.nextUrl.origin}/api/download?fileId=${fileId}`
+          `${request.nextUrl.origin}/api/download?fileId=${metadataFileId}`
         );
         if (downloadResponse.ok) {
           const { downloadUrl, filename } = await downloadResponse.json();
           
           console.log('📧 Sending email notification...', {
-            email: jobInfo.email,
+            email: metadataEmail,
             filename,
             downloadUrlLength: downloadUrl?.length,
           });
@@ -73,8 +101,8 @@ export async function GET(request: NextRequest) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              email: jobInfo.email,
-              fileId,
+              email: metadataEmail,
+              fileId: metadataFileId,
               downloadUrl,
               filename,
             }),
@@ -82,8 +110,11 @@ export async function GET(request: NextRequest) {
 
           if (notifyResponse.ok) {
             console.log('✅ Email notification sent successfully');
-            // Mark email as sent
-            jobStore.set(fileId, { ...updatedJobInfo, emailSent: true });
+            // Mark email as sent in job store
+            const currentInfo = jobStore.get(metadataFileId);
+            if (currentInfo) {
+              jobStore.set(metadataFileId, { ...currentInfo, emailSent: true });
+            }
           } else {
             const errorData = await notifyResponse.json();
             console.error('❌ Failed to send email notification:', errorData);
@@ -95,17 +126,15 @@ export async function GET(request: NextRequest) {
         console.error('❌ Email notification error:', emailError);
         // Don't fail the status check if email fails
       }
-    } else if (status === 'COMPLETE' && !jobInfo.email) {
-      console.log('ℹ️ Conversion complete but no email provided');
-    } else if (status === 'COMPLETE' && jobInfo.emailSent) {
-      console.log('ℹ️ Email already sent for this conversion');
     }
 
     return NextResponse.json({
       status,
       progress,
       error: job.ErrorMessage,
-      outputKey: jobInfo.outputKey,
+      outputKey: `${metadataFileId}/output.mp4`,
+      fileId: metadataFileId,
+      jobId: actualJobId,
     });
   } catch (error) {
     console.error('Error checking job status:', error);
