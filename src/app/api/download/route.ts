@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3';
+import { GetObjectCommand, HeadObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { s3Client, OUTPUT_BUCKET } from '@/lib/aws/s3-client';
-import { jobStore } from '@/lib/aws/job-store';
 
 export async function GET(request: NextRequest) {
   try {
@@ -15,54 +14,30 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const jobInfo = jobStore.get(fileId);
+    // MediaConvert always outputs to ${fileId}/output.mp4
+    const outputKey = `${fileId}/output.mp4`;
 
-    if (!jobInfo) {
+    // Check if file exists
+    try {
+      await s3Client.send(new HeadObjectCommand({
+        Bucket: OUTPUT_BUCKET,
+        Key: outputKey,
+      }));
+    } catch (err) {
       return NextResponse.json(
-        { error: 'Job not found' },
+        { error: 'Output file not found. Conversion may not be complete yet.' },
         { status: 404 }
       );
     }
 
-    if (jobInfo.status !== 'COMPLETE') {
-      return NextResponse.json(
-        { error: `Conversion not complete. Status: ${jobInfo.status}` },
-        { status: 400 }
-      );
-    }
-
-    // List files in the output folder to find the actual output file
-    const listCommand = new ListObjectsV2Command({
-      Bucket: OUTPUT_BUCKET,
-      Prefix: `${fileId}/`,
-    });
-
-    const listResponse = await s3Client.send(listCommand);
-    const outputFiles = listResponse.Contents?.filter(
-      (obj) => obj.Key?.endsWith('.mp4')
-    );
-
-    if (!outputFiles || outputFiles.length === 0) {
-      return NextResponse.json(
-        { error: 'Output file not found' },
-        { status: 404 }
-      );
-    }
-
-    // Use the first MP4 file found
-    const actualOutputKey = outputFiles[0].Key!;
-
-    // Extract original filename from input key and add "converted"
-    const originalFilename = jobInfo.inputKey.split('/').pop() || 'video.mp4';
-    const fileExtension = originalFilename.substring(originalFilename.lastIndexOf('.'));
-    const baseName = originalFilename.substring(0, originalFilename.lastIndexOf('.'));
-    const downloadFilename = `${baseName}-converted${fileExtension}`;
+    // Generate download filename
+    const downloadFilename = `${fileId}-converted.mp4`;
 
     // Generate signed download URL (expires in 1 hour)
     // Force download instead of playing in browser
     const command = new GetObjectCommand({
       Bucket: OUTPUT_BUCKET,
-      Key: actualOutputKey,
+      Key: outputKey,
       ResponseContentDisposition: `attachment; filename="${downloadFilename}"`,
       ResponseContentType: 'video/mp4',
     });
@@ -78,7 +53,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error generating download URL:', error);
     return NextResponse.json(
-      { error: 'Failed to generate download link' },
+      { error: 'Failed to generate download URL' },
       { status: 500 }
     );
   }
