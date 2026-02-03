@@ -15,7 +15,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const outputKey = `${fileId}/output.mp4`;
+    // Extract original filename from inputKey (format: fileId/original-filename.ext)
+    const originalFilename = inputKey.split('/').pop() || 'video.mp4';
+    const outputKey = `${fileId}/${originalFilename}`;
 
     // Get MediaConvert client with correct endpoint
     const mediaConvertClient = await getMediaConvertClient();
@@ -26,6 +28,7 @@ export async function POST(request: NextRequest) {
       UserMetadata: {
         fileId: fileId,
         email: email || '',
+        originalFilename: originalFilename,
       },
       Settings: {
         Inputs: [
@@ -50,7 +53,6 @@ export async function POST(request: NextRequest) {
             },
             Outputs: [
               {
-                NameModifier: 'output', // This will create output.mp4
                 ContainerSettings: {
                   Container: 'MP4',
                   Mp4Settings: {
