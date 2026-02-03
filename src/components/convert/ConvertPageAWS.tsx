@@ -67,17 +67,29 @@ export default function ConvertPageAWS() {
   };
 
   const startConversion = async (fileId: string, inputKey: string, email?: string) => {
-    const response = await fetch('/api/convert', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fileId, inputKey, email: email || undefined }),
-    });
+    try {
+      const response = await fetch('/api/convert', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fileId, inputKey, email: email || undefined }),
+      });
 
-    if (!response.ok) {
-      throw new Error('Failed to start conversion');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errorData.error || 'Failed to start conversion');
+      }
+
+      const data = await response.json();
+      
+      if (!data.jobId) {
+        throw new Error('No job ID returned from server');
+      }
+
+      return data;
+    } catch (err) {
+      console.error('Error starting conversion:', err);
+      throw err;
     }
-
-    return response.json();
   };
 
   const pollStatus = async (fileId: string, jobId: string) => {
@@ -127,18 +139,28 @@ export default function ConvertPageAWS() {
       setError(null);
       setProgress(0);
 
+      console.log('Starting upload...', { filename: file.name, size: file.size });
+
       // Upload to S3
       const { fileId, key } = await uploadToS3(file);
       setFileId(fileId);
+      
+      console.log('Upload complete, starting conversion...', { fileId, key });
 
       setStatus('converting');
       
       // Start conversion
-      const { jobId } = await startConversion(fileId, key, email || undefined);
-      setJobId(jobId);
+      const conversionResult = await startConversion(fileId, key, email || undefined);
+      console.log('Conversion started:', conversionResult);
+      
+      if (!conversionResult?.jobId) {
+        throw new Error('Invalid response from conversion API');
+      }
+      
+      setJobId(conversionResult.jobId);
 
       // Poll for status
-      pollStatus(fileId, jobId);
+      pollStatus(fileId, conversionResult.jobId);
     } catch (err) {
       console.error('Conversion error:', err);
       setStatus('error');
