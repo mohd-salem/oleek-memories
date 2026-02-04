@@ -30,6 +30,13 @@ export const metadata: Metadata = {
   keywords: ['wedding video book', 'video keepsake', 'wedding gift', 'video album', 'memories book', 'premium wedding gift'],
   authors: [{ name: 'OLEEK' }],
   creator: 'OLEEK',
+  icons: {
+    icon: [
+      { url: '/images/oleek_favicon_512.png', sizes: '512x512', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    apple: '/images/oleek_favicon_512.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',

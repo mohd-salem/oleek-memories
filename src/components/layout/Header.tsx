@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import Container from '@/components/shared/Container'
@@ -21,8 +22,15 @@ export default function Header() {
       <Container>
         <nav className="flex items-center justify-between py-4">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-display font-bold text-charcoal-900 focus-ring rounded">
-            OLEEK
+          <Link href="/" className="focus-ring rounded flex items-center">
+            <Image 
+              src="/images/oleek-logo-for-web.png"
+              alt="OLEEK"
+              width={120}
+              height={40}
+              priority
+              className="h-10 w-auto"
+            />
           </Link>
           
           {/* Desktop Navigation */}
