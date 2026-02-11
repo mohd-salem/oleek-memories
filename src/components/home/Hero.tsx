@@ -24,7 +24,7 @@ export default function Hero() {
             
             <div className="flex flex-col sm:flex-row gap-4">
               <ButtonLink 
-                href="https://www.amazon.com/oleek"
+                href="https://www.amazon.com/dp/B0G9VL1XFH"
                 external
                 variant="amazon"
                 size="lg"

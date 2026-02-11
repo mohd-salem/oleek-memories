@@ -11,7 +11,10 @@ const products = [
     title: 'Our Wedding - Gold Foil',
     description: 'Classic elegance in script lettering',
     image: '/images/cover-our-wedding.png',
-    sizes: ['16GB', '32GB'],
+    sizes: [
+      { size: '16GB', asin: 'B0G9VL1XFH' },
+      { size: '32GB', asin: 'B0GCL1S48L' },
+    ],
     featured: true,
   },
   // {
@@ -26,28 +29,28 @@ const products = [
     title: 'We Do',
     description: 'Romantic cursive on white linen',
     image: '/images/cover-WE-DO.png',
-    sizes: ['16GB'],
+    sizes: [{ size: '16GB', asin: 'B0GCK92CPQ' }],
   },
   {
     id: 'always-forever',
     title: 'Always & Forever',
     description: 'Timeless sentiment',
     image: '/images/cover-always-forever.png',
-    sizes: ['16GB'],
+    sizes: [{ size: '16GB', asin: 'B0GCKPW1BY' }],
   },
   {
     id: 'best-day-ever',
     title: 'Best Day Ever',
     description: 'Joyful celebration',
     image: '/images/cover-1.png',
-    sizes: ['16GB'],
+    sizes: [{ size: '16GB', asin: '' }],
   },
   {
     id: 'memories',
     title: 'Memories',
     description: 'Simple, versatile',
     image: '/images/cover-memories.png',
-    sizes: ['16GB'],
+    sizes: [{ size: '16GB', asin: 'B0GCKPGQYD' }],
   },
 ]
 
@@ -95,19 +98,36 @@ export default function ProductVersions() {
                 </p>
                 
                 <p className="text-sm text-slate-600 mb-4">
-                  Available in: {product.sizes.join(' and ')}
+                  Available in: {product.sizes.map(s => s.size).join(' and ')}
                 </p>
                 
-                {/* Button pushed to bottom */}
-                <ButtonLink 
-                  href="https://www.amazon.com/oleek"
-                  external
-                  variant="amazon"
-                  size="sm"
-                  className="w-full mt-auto"
-                >
-                  View on Amazon
-                </ButtonLink>
+                {/* Buttons pushed to bottom */}
+                <div className="mt-auto space-y-2">
+                  {product.sizes.length === 1 ? (
+                    <ButtonLink 
+                      href={product.sizes[0].asin ? `https://www.amazon.com/dp/${product.sizes[0].asin}` : 'https://www.amazon.com/oleek'}
+                      external
+                      variant="amazon"
+                      size="sm"
+                      className="w-full"
+                    >
+                      View on Amazon
+                    </ButtonLink>
+                  ) : (
+                    product.sizes.map((item) => (
+                      <ButtonLink 
+                        key={item.size}
+                        href={item.asin ? `https://www.amazon.com/dp/${item.asin}` : 'https://www.amazon.com/oleek'}
+                        external
+                        variant="amazon"
+                        size="sm"
+                        className="w-full"
+                      >
+                        View {item.size} on Amazon
+                      </ButtonLink>
+                    ))
+                  )}
+                </div>
               </div>
             </Card>
           ))}
