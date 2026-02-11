@@ -12,7 +12,7 @@ const features = [
   {
     icon: Battery,
     title: 'Extended Battery',
-    description: '8 hours of continuous playback with 5000mAh battery. Over a year of standby time between charges.',
+    description: '10 hours of continuous playback with 5000mAh battery. Over a year of standby time between charges.',
   },
   {
     icon: Play,

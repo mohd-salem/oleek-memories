@@ -10,37 +10,43 @@ const products = [
     id: 'our-wedding-gold',
     title: 'Our Wedding - Gold Foil',
     description: 'Classic elegance in script lettering',
+    image: '/images/cover-our-wedding.png',
     sizes: ['16GB', '32GB'],
     featured: true,
   },
-  {
-    id: 'our-wedding-black',
-    title: 'Our Wedding - Black Foil',
-    description: 'Modern sophistication',
-    sizes: ['16GB', '32GB'],
-  },
+  // {
+  //   id: 'our-wedding-black',
+  //   title: 'Our Wedding - Black Foil',
+  //   description: 'Modern sophistication',
+  //   image: '/images/cover-our-wedding-black.png',
+  //   sizes: ['16GB', '32GB'],
+  // },
   {
     id: 'we-do',
     title: 'We Do',
     description: 'Romantic cursive on white linen',
+    image: '/images/cover-WE-DO.png',
     sizes: ['16GB'],
   },
   {
     id: 'always-forever',
     title: 'Always & Forever',
     description: 'Timeless sentiment',
+    image: '/images/cover-always-forever.png',
     sizes: ['16GB'],
   },
   {
     id: 'best-day-ever',
     title: 'Best Day Ever',
     description: 'Joyful celebration',
+    image: '/images/cover-1.png',
     sizes: ['16GB'],
   },
   {
     id: 'memories',
     title: 'Memories',
     description: 'Simple, versatile',
+    image: '/images/cover-memories.png',
     sizes: ['16GB'],
   },
 ]
@@ -71,10 +77,10 @@ export default function ProductVersions() {
               {/* Product Image - Fixed height */}
               <div className="relative h-48 mb-4 flex-shrink-0">
                 <Image 
-                  src="/images/7.jpg"
+                  src={product.image}
                   alt={product.title}
                   fill
-                  className="object-cover rounded"
+                  className="object-contain rounded"
                 />
               </div>
               

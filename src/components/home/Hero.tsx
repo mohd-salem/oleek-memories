@@ -49,7 +49,7 @@ export default function Hero() {
           {/* Right: Product Image */}
           <div className="relative h-64 md:h-80">
             <Image 
-              src="/images/2.jpg"
+              src="/images/cover-1.PNG"
               alt="OLEEK Memories Book - Our Wedding video album open and playing"
               fill
               priority
