@@ -47,7 +47,7 @@ export default function Header() {
             
             {/* Primary CTA - Amazon */}
             <a
-              href="https://www.amazon.com/oleek" // Update with actual Amazon link
+              href="https://www.amazon.com/dp/B0G9VL1XFH" // Update with actual Amazon link
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackAmazonClick('header')}
@@ -86,7 +86,7 @@ export default function Header() {
                 </Link>
               ))}
               <a
-                href="https://www.amazon.com/oleek" // Update with actual Amazon link
+                href="https://www.amazon.com/dp/B0G9VL1XFH" // Update with actual Amazon link
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-amazon hover:bg-amazon-dark text-white px-6 py-3 rounded font-medium transition-colors text-center"
