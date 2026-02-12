@@ -38,13 +38,13 @@ const products = [
     image: '/images/cover-always-forever.png',
     sizes: [{ size: '16GB', asin: 'B0GCKPW1BY' }],
   },
-  {
-    id: 'best-day-ever',
-    title: 'Best Day Ever',
-    description: 'Joyful celebration',
-    image: '/images/cover-1.png',
-    sizes: [{ size: '16GB', asin: '' }],
-  },
+  // {
+  //   id: 'best-day-ever',
+  //   title: 'Best Day Ever',
+  //   description: 'Joyful celebration',
+  //   image: '/images/cover-1.png',
+  //   sizes: [{ size: '16GB', asin: '' }],
+  // },
   {
     id: 'memories',
     title: 'Memories',

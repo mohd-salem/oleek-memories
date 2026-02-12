@@ -14,12 +14,13 @@ export default function Hero() {
               Premium Wedding Keepsake
             </Badge>
             
-            <h1 className="text-5xl md:text-6xl font-display font-extrabold text-charcoal-900 mb-6 leading-tight">
-              Your Wedding Video, Beautifully Preserved
+            <h1 className="text-3xl md:text-5xl font-display font-extrabold text-charcoal-900 mb-6 leading-tight">
+              Your Wedding Video, Turned Into a Memory Book
             </h1>
             
             <p className="text-xl text-charcoal-700 mb-8 leading-relaxed">
-              A linen-bound video album with a 7" HD screen. Simply open the cover and your memories come to life—no setup, no software, no complexity.
+              Open the linen cover and your wedding memories come to life instantly on the 7" HD screen — no setup, no software. Just your special day, ready to relive anytime.
+From your first look to your last dance, every moment is saved inside.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -49,7 +50,7 @@ export default function Hero() {
           {/* Right: Product Image */}
           <div className="relative h-64 md:h-80">
             <Image 
-              src="/images/cover-1.PNG"
+              src="/images/cover-11.jpg"
               alt="OLEEK Memories Book - Our Wedding video album open and playing"
               fill
               priority

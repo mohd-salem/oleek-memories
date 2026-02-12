@@ -8,7 +8,7 @@ export default function Footer() {
     product: {
       title: 'Product',
       links: [
-        { label: 'Shop on Amazon', href: 'https://www.amazon.com', external: true as const },
+        { label: 'Shop on Amazon', href: 'https://www.amazon.com/oleek', external: true as const },
         { label: 'Product Versions', href: '/#versions', external: false as const },
         { label: 'Features', href: '/#features', external: false as const },
       ],
