@@ -147,7 +147,7 @@ export default function FAQPage() {
               <ul className="list-disc pl-6">
                 <li>Small files (under 500MB): 5-15 minutes</li>
                 <li>Medium files (500MB-1GB): 15-30 minutes</li>
-                <li>Large files (1GB-2GB): 30-60 minutes</li>
+                <li>Large files (5GB-16GB): May take several minutes, we recommend providing your email to receive a download link when ready</li>
               </ul>
               <p className="mt-3 text-sm text-slate-600">
                 Conversion uses your computer's processor, so faster computer = faster conversion.

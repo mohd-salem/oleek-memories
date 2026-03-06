@@ -32,16 +32,16 @@ export function validateVideoFile(file: File): ValidationResult {
   if (file.size > MAX_FILE_SIZE) {
     return {
       valid: false,
-      error: `File too large (${formatFileSize(file.size)}). Maximum size is 2GB. Please use a smaller file or contact support.`,
+      error: `File too large (${formatFileSize(file.size)}). Maximum size is 16GB. Please use a smaller file or contact support.`,
     }
   }
 
-  // Warning for large files (over 1GB)
-  const warningSize = 1 * 1024 * 1024 * 1024 // 1GB
+  // Warning for large files (over 5GB)
+  const warningSize = 5 * 1024 * 1024 * 1024 // 5GB
   if (file.size > warningSize) {
     return {
       valid: true,
-      warning: `Large file detected (${formatFileSize(file.size)}). Conversion may take 30-60 minutes. Make sure your device is plugged in.`,
+      warning: `Large file detected (${formatFileSize(file.size)}). Conversion may take several minutes. You can leave this page and we'll email you when ready.`,
     }
   }
 
