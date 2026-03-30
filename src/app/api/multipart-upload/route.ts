@@ -81,9 +81,24 @@ export async function POST(request: NextRequest) {
           PartNumber: pNum,
         });
 
-        const signedUrl = await getSignedUrl(s3Client, command, {
+        const rawSignedUrl = await getSignedUrl(s3Client, command, {
           expiresIn: 3600, // 1 hour per part
         });
+
+        // AWS SDK v3 embeds a CRC32 checksum computed against an *empty* body
+        // into presigned UploadPart URLs (e.g. X-Amz-Checksum-Crc32=AAAAAA==).
+        // When the browser sends the real binary chunk, S3 validates the checksum,
+        // sees a mismatch, and resets the connection → ERR_NETWORK_IO_SUSPENDED.
+        // Strip any checksum-related query parameters before returning the URL.
+        const urlObj = new URL(rawSignedUrl);
+        const checksumKeys: string[] = [];
+        urlObj.searchParams.forEach((_, key) => {
+          if (key.toLowerCase().includes('checksum')) {
+            checksumKeys.push(key);
+          }
+        });
+        checksumKeys.forEach((key) => urlObj.searchParams.delete(key));
+        const signedUrl = urlObj.toString();
 
         return NextResponse.json({ signedUrl });
       }
