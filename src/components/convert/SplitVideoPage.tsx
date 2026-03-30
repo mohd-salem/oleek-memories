@@ -124,9 +124,22 @@ async function multipartUpload(
         method: 'PUT',
         body: chunk,
       });
-      if (!uploadRes.ok) throw new Error(`Failed to upload part ${partNumber}`);
+      if (!uploadRes.ok) {
+        throw new Error(
+          `Upload failed at chunk ${partNumber}/${totalChunks} (HTTP ${uploadRes.status}). ` +
+          `Please check your connection and try again.`
+        );
+      }
 
-      const etag = uploadRes.headers.get('ETag') ?? '';
+      // ETag may be wrapped in quotes — strip them for CompleteMultipartUpload
+      const rawEtag = uploadRes.headers.get('ETag') ?? '';
+      const etag = rawEtag.replace(/"/g, '');
+      if (!etag) {
+        throw new Error(
+          `Could not read ETag for chunk ${partNumber}. ` +
+          `Your S3 bucket CORS policy may need to expose the ETag header.`
+        );
+      }
       parts.push({ PartNumber: partNumber, ETag: etag });
 
       uploadedChunks++;
