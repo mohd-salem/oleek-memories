@@ -11,11 +11,11 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
   const navLinks = [
-    { href: '/convert', label: 'Convert Video' },
-    { href: '/split', label: 'Split Video' },
-    { href: '/learn', label: 'Learn' },
-    { href: '/faq', label: 'FAQ' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/convert', label: 'Convert Video', badge: undefined },
+    { href: '/split', label: 'Split Video', badge: 'Videos over 5 GB' },
+    { href: '/learn', label: 'Learn', badge: undefined },
+    { href: '/faq', label: 'FAQ', badge: undefined },
+    { href: '/contact', label: 'Contact', badge: undefined },
   ]
   
   return (
@@ -40,9 +40,14 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-charcoal-700 hover:text-gold-500 transition-colors font-medium focus-ring rounded px-2 py-1"
+                className="flex items-center gap-1.5 text-charcoal-700 hover:text-gold-500 transition-colors font-medium focus-ring rounded px-2 py-1"
               >
                 {link.label}
+                {link.badge && (
+                  <span className="text-xs bg-gold-100 text-gold-700 border border-gold-300 rounded-full px-2 py-0.5 font-normal leading-none">
+                    {link.badge}
+                  </span>
+                )}
               </Link>
             ))}
             
@@ -81,9 +86,14 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-charcoal-700 hover:text-gold-500 transition-colors font-medium py-2"
+                  className="flex items-center gap-2 text-charcoal-700 hover:text-gold-500 transition-colors font-medium py-2"
                 >
                   {link.label}
+                  {link.badge && (
+                    <span className="text-xs bg-gold-100 text-gold-700 border border-gold-300 rounded-full px-2 py-0.5 font-normal leading-none">
+                      {link.badge}
+                    </span>
+                  )}
                 </Link>
               ))}
               <a
