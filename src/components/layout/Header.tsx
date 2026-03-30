@@ -12,6 +12,7 @@ export default function Header() {
   
   const navLinks = [
     { href: '/convert', label: 'Convert Video' },
+    { href: '/split', label: 'Split Video' },
     { href: '/learn', label: 'Learn' },
     { href: '/faq', label: 'FAQ' },
     { href: '/contact', label: 'Contact' },

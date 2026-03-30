@@ -25,6 +25,7 @@ export async function POST(request: NextRequest) {
     // Create MediaConvert job with OLEEK specs
     const command = new CreateJobCommand({
       Role: MEDIACONVERT_ROLE_ARN,
+      Queue: process.env.AWS_MEDIACONVERT_QUEUE, // Use configured queue (can be accelerated queue)
       UserMetadata: {
         fileId: fileId,
         email: email || '',
@@ -68,22 +69,20 @@ export async function POST(request: NextRequest) {
                       MaxBitrate: 5000000, // 5 Mbps max (QVBR mode uses MaxBitrate only)
                       RateControlMode: 'QVBR',
                       QvbrSettings: {
-                        QvbrQualityLevel: 8, // Quality level 1-10 (8 = high quality)
+                        QvbrQualityLevel: 7, // Quality level 1-10 (7 = good balance, was 8)
                       },
                       QualityTuningLevel: 'SINGLE_PASS',
                       CodecProfile: 'MAIN',
                       CodecLevel: 'AUTO',
                       GopSize: 60,
                       GopSizeUnits: 'FRAMES',
-                      FramerateControl: 'SPECIFIED',
-                      FramerateNumerator: 30,
-                      FramerateDenominator: 1,
+                      FramerateControl: 'INITIALIZE_FROM_SOURCE', // Match source fps instead of forcing 30
                     },
                   },
                   Width: 1920,
                   Height: 1080,
                   RespondToAfd: 'NONE',
-                  ScalingBehavior: 'DEFAULT',
+                  ScalingBehavior: 'FIT', // Scale down if needed, don't upscale small videos
                   AntiAlias: 'ENABLED',
                 },
                 AudioDescriptions: [

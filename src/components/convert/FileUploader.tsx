@@ -66,7 +66,7 @@ export default function FileUploader({ onFileSelect, disabled = false }: FileUpl
               Supports: {getSupportedFormatsDisplay()}
             </p>
             <p className="text-xs text-slate-500 mt-2">
-              Accepts files up to 16GB
+              Best results with files under 5GB
             </p>
           </>
         )}

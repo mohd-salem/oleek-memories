@@ -54,8 +54,8 @@ export const getSupportedFormatsDisplay = (): string => {
   return SUPPORTED_FORMATS.map(f => f.extension.toUpperCase()).join(', ')
 }
 
-// Maximum recommended file size (16GB)
-export const MAX_FILE_SIZE = 16 * 1024 * 1024 * 1024 // 16GB in bytes
+// Maximum recommended file size (5GB)
+export const MAX_FILE_SIZE = 5 * 1024 * 1024 * 1024 // 5GB in bytes
 
 // Maximum file size for warning (1GB)
 export const WARNING_FILE_SIZE = 1 * 1024 * 1024 * 1024 // 1GB in bytes

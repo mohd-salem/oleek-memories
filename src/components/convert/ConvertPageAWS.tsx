@@ -220,7 +220,7 @@ export default function ConvertPageAWS() {
                     Click to upload your video
                   </p>
                   <p className="text-sm text-charcoal-500">
-                    MP4, MOV, AVI, MKV up to 16GB
+                    MP4, MOV, AVI, MKV up to 5GB
                   </p>
                 </label>
               </div>

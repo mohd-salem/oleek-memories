@@ -19,7 +19,7 @@ const ALLOWED_EXTENSIONS = [
   '.m4v',
 ];
 
-const MAX_FILE_SIZE = 16 * 1024 * 1024 * 1024; // 16GB
+const MAX_FILE_SIZE = 5 * 1024 * 1024 * 1024; // 5GB
 
 export function validateVideoFile(file: File): { valid: boolean; error?: string } {
   // Check file type

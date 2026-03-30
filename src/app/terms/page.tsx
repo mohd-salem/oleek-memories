@@ -138,7 +138,7 @@ export default function TermsPage() {
           
           <h3>File Size Limits</h3>
           <p>
-            The Service accepts files up to <strong>16GB</strong>. Larger files will be rejected. We are not responsible for failed conversions due to file size limitations or network interruptions.
+            The Service is optimized for files up to <strong>5GB</strong>. Larger files may fail or encounter errors. We are not responsible for failed conversions due to file size limitations.
           </p>
 
           <h3>Browser Performance</h3>
