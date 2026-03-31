@@ -87,6 +87,27 @@ function buildSegments(fileSizeBytes: number, durationSeconds: number): Segment[
 }
 
 // ---------- S3 multipart upload ----------
+
+/** Retry an async operation up to maxAttempts with exponential back-off */
+async function withRetry<T>(
+  fn: () => Promise<T>,
+  maxAttempts = 3,
+  baseDelayMs = 1500
+): Promise<T> {
+  let lastErr: unknown;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastErr = err;
+      if (attempt < maxAttempts) {
+        await new Promise((r) => setTimeout(r, baseDelayMs * attempt));
+      }
+    }
+  }
+  throw lastErr;
+}
+
 async function multipartUpload(
   file: File,
   onProgress: (pct: number) => void
@@ -111,38 +132,39 @@ async function multipartUpload(
       const end = Math.min(start + CHUNK_SIZE, file.size);
       const chunk = file.slice(start, end);
 
-      // Get presigned URL for this part
-      const urlRes = await fetch('/api/multipart-upload', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'part-url', key, uploadId, partNumber }),
-      });
-      if (!urlRes.ok) throw new Error(`Failed to get URL for part ${partNumber}`);
-      const { signedUrl } = await urlRes.json();
+      // Upload this chunk — get a fresh presigned URL on each attempt
+      // (handles both transient network errors and ERR_NETWORK_IO_SUSPENDED)
+      const etag = await withRetry(async () => {
+        // Get presigned URL for this part (fresh each attempt avoids stale URLs)
+        const urlRes = await fetch('/api/multipart-upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'part-url', key, uploadId, partNumber }),
+        });
+        if (!urlRes.ok) throw new Error(`Failed to get URL for part ${partNumber}`);
+        const { signedUrl } = await urlRes.json();
 
-      // Upload chunk to S3
-      const uploadRes = await fetch(signedUrl, {
-        method: 'PUT',
-        body: chunk,
-      });
-      if (!uploadRes.ok) {
-        throw new Error(
-          `Upload failed at chunk ${partNumber}/${totalChunks} (HTTP ${uploadRes.status}). ` +
-          `Please check your connection and try again.`
-        );
-      }
+        // PUT the chunk directly to S3
+        const uploadRes = await fetch(signedUrl, {
+          method: 'PUT',
+          body: chunk,
+        });
+        if (!uploadRes.ok) {
+          throw new Error(`HTTP ${uploadRes.status} on chunk ${partNumber}/${totalChunks}`);
+        }
 
-      // ETag may be wrapped in quotes — strip them for CompleteMultipartUpload
-      const rawEtag = uploadRes.headers.get('ETag') ?? '';
-      const etag = rawEtag.replace(/"/g, '');
-      if (!etag) {
-        throw new Error(
-          `Could not read ETag for chunk ${partNumber}. ` +
-          `Your S3 bucket CORS policy may need to expose the ETag header.`
-        );
-      }
+        // ETag may be wrapped in quotes — strip them for CompleteMultipartUpload
+        const rawEtag = uploadRes.headers.get('ETag') ?? '';
+        const etag = rawEtag.replace(/"/g, '');
+        if (!etag) {
+          throw new Error(
+            `Missing ETag for chunk ${partNumber} — S3 CORS may need to expose the ETag header.`
+          );
+        }
+        return etag;
+      });
+
       parts.push({ PartNumber: partNumber, ETag: etag });
-
       uploadedChunks++;
       onProgress(Math.round((uploadedChunks / totalChunks) * 100));
     }
