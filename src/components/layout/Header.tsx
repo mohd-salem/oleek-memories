@@ -12,7 +12,7 @@ export default function Header() {
   
   const navLinks = [
     { href: '/convert', label: 'Convert Video', badge: undefined },
-    { href: '/split', label: 'Split Video', badge: 'Videos over 5 GB' },
+    { href: '/split', label: 'Split Video', badge: '5 GB+' },
     { href: '/learn', label: 'Learn', badge: undefined },
     { href: '/faq', label: 'FAQ', badge: undefined },
     { href: '/contact', label: 'Contact', badge: undefined },
@@ -40,11 +40,11 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="flex items-center gap-1.5 text-charcoal-700 hover:text-gold-500 transition-colors font-medium focus-ring rounded px-2 py-1"
+                className="flex flex-col items-center text-charcoal-700 hover:text-gold-500 transition-colors font-medium focus-ring rounded px-2 py-1 leading-tight"
               >
-                {link.label}
+                <span>{link.label}</span>
                 {link.badge && (
-                  <span className="text-xs bg-gold-100 text-gold-700 border border-gold-300 rounded-full px-2 py-0.5 font-normal leading-none">
+                  <span className="text-[10px] bg-gold-100 text-gold-700 border border-gold-300 rounded-full px-1.5 py-px font-normal leading-none mt-0.5">
                     {link.badge}
                   </span>
                 )}
@@ -90,7 +90,7 @@ export default function Header() {
                 >
                   {link.label}
                   {link.badge && (
-                    <span className="text-xs bg-gold-100 text-gold-700 border border-gold-300 rounded-full px-2 py-0.5 font-normal leading-none">
+                    <span className="text-[10px] bg-gold-100 text-gold-700 border border-gold-300 rounded-full px-1.5 py-px font-normal leading-none">
                       {link.badge}
                     </span>
                   )}

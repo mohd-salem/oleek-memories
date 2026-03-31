@@ -1,8 +1,11 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { Upload, CheckCircle2, XCircle, Loader2, Download, Shield } from 'lucide-react';
+import Link from 'next/link';
+import { Upload, CheckCircle2, XCircle, Loader2, Download, Shield, Scissors } from 'lucide-react';
 import { validateVideoFile } from '@/lib/validation/file-validator';
+
+const SPLIT_THRESHOLD = 5 * 1024 * 1024 * 1024; // 5 GB
 
 type ConversionStatus = 'idle' | 'uploading' | 'converting' | 'complete' | 'error';
 
@@ -16,10 +19,21 @@ export default function ConvertPageAWS() {
   const [jobId, setJobId] = useState<string | null>(null);
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
+  const [tooLargeForConvert, setTooLargeForConvert] = useState(false);
+
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
 
+    // Files over 5 GB must use the split tool
+    if (selectedFile.size > SPLIT_THRESHOLD) {
+      setTooLargeForConvert(true);
+      setError(null);
+      setFile(null);
+      return;
+    }
+
+    setTooLargeForConvert(false);
     const validation = validateVideoFile(selectedFile);
     if (!validation.valid) {
       setError(validation.error || 'Invalid file');
@@ -191,6 +205,18 @@ export default function ConvertPageAWS() {
           </p>
         </div>
 
+        {/* Split CTA banner — always visible */}
+        <div className="bg-amber-50 border border-amber-300 rounded-lg p-4 mb-6 flex items-start gap-3">
+          <Scissors className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-charcoal-700">
+            <strong className="font-semibold">Video over 5 GB?</strong>{' '}
+            This tool supports files up to 5 GB. For larger videos, use the{' '}
+            <Link href="/split" className="text-gold-600 font-semibold underline underline-offset-2 hover:text-gold-700">
+              Split &amp; Convert
+            </Link>{' '}tool — it automatically splits your video into device-ready parts.
+          </p>
+        </div>
+
         {/* How It Works Banner */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8 flex items-start gap-3">
           <Shield className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
@@ -203,6 +229,30 @@ export default function ConvertPageAWS() {
         <div className="bg-white rounded-xl shadow-lg p-8">
           {status === 'idle' && (
             <>
+              {/* >5 GB file selected — redirect card */}
+              {tooLargeForConvert && (
+                <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-8 text-center mb-6">
+                  <Scissors className="w-12 h-12 text-amber-500 mx-auto mb-3" />
+                  <p className="text-lg font-semibold text-charcoal-800 mb-2">Your video is over 5 GB</p>
+                  <p className="text-sm text-charcoal-600 mb-5">
+                    This tool supports files up to 5 GB. Your video needs to be split into smaller parts first.
+                  </p>
+                  <Link
+                    href="/split"
+                    className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                  >
+                    <Scissors className="w-4 h-4" />
+                    Use Split &amp; Convert Tool
+                  </Link>
+                  <button
+                    onClick={() => setTooLargeForConvert(false)}
+                    className="block mx-auto mt-3 text-sm text-charcoal-500 hover:text-charcoal-700 underline"
+                  >
+                    Choose a different file
+                  </button>
+                </div>
+              )}
+
               <div className="border-2 border-dashed border-charcoal-200 rounded-lg p-12 text-center mb-6">
                 <input
                   type="file"

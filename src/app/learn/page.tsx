@@ -238,6 +238,51 @@ export default function LearnPage() {
           </Accordion>
         </div>
 
+        {/* Large video section */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-display font-bold text-charcoal-900 mb-4">
+            Working With Large Videos (Over 5 GB)
+          </h2>
+          <p className="text-charcoal-700 mb-6">
+            Professional wedding or event videos can easily exceed 5 GB. The standard Convert Video
+            tool supports files up to 5 GB. For anything larger, use the{' '}
+            <a href="/split" className="text-gold-600 underline font-semibold">Split &amp; Convert</a> tool.
+          </p>
+
+          <div className="bg-amber-50 border border-amber-300 rounded-lg p-6 mb-6">
+            <h3 className="font-semibold text-charcoal-900 mb-3 text-lg">How Split &amp; Convert works</h3>
+            <ol className="list-decimal pl-6 space-y-3 text-charcoal-700">
+              <li>
+                <strong>Upload your video</strong> — any size, via our secure multipart uploader.
+              </li>
+              <li>
+                <strong>Automatic segmentation</strong> — the tool reads the video duration and
+                divides it into equal-time parts, each no larger than 4.5 GB.
+              </li>
+              <li>
+                <strong>Cloud conversion</strong> — all parts are converted simultaneously on AWS
+                using the same device-optimised settings (H.264, 1080p, 30 fps).
+              </li>
+              <li>
+                <strong>Download all parts</strong> — individual download links appear for each part
+                when ready. Copy them all onto your OLEEK device.
+              </li>
+            </ol>
+          </div>
+
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-charcoal-700">
+            <strong>Pro tip:</strong> Rename parts before copying them to your device so they play
+            in the right order — e.g. <code className="bg-blue-100 px-1 rounded">01_wedding_part1.mp4</code>,{' '}
+            <code className="bg-blue-100 px-1 rounded">02_wedding_part2.mp4</code>.
+          </div>
+
+          <div className="mt-6">
+            <ButtonLink href="/split" variant="primary">
+              Open Split &amp; Convert Tool
+            </ButtonLink>
+          </div>
+        </div>
+
         {/* CTA */}
         <div className="text-center bg-gold-50 border border-gold-200 rounded-lg p-8">
           <h3 className="text-2xl font-display font-bold text-charcoal-900 mb-4">

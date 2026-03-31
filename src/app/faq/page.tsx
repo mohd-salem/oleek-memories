@@ -153,6 +153,24 @@ export default function FAQPage() {
                 Conversion uses your computer's processor, so faster computer = faster conversion.
               </p>
             </AccordionItem>
+
+            <AccordionItem title="What if my video is larger than 5 GB?">
+              <p className="mb-3">
+                The standard <a href="/convert" className="text-gold-600 underline">Convert Video</a> tool
+                supports files up to 5 GB. If your video is larger, use the{' '}
+                <a href="/split" className="text-gold-600 underline font-semibold">Split &amp; Convert</a> tool instead.
+              </p>
+              <p className="mb-3">Here's how it works:</p>
+              <ol className="list-decimal pl-6 space-y-2">
+                <li>Upload your large video (any size)</li>
+                <li>The tool automatically calculates equal-time segments (each up to 4.5 GB)</li>
+                <li>All parts are converted to device format simultaneously in the cloud</li>
+                <li>You download each part and copy them all onto your OLEEK device</li>
+              </ol>
+              <p className="mt-3 text-sm text-slate-600">
+                Parts play in order (Part 1, Part 2…) for a seamless experience.
+              </p>
+            </AccordionItem>
           </Accordion>
         </div>
 
