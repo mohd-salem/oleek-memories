@@ -329,7 +329,9 @@ export default function SplitVideoPage() {
           clearJob(); // remove from localStorage
           const anyError = updated.some((p) => p.status === 'ERROR' || p.status === 'CANCELED');
           if (anyError) {
-            setError('One or more parts failed to convert. Please try again.');
+            const failedPart = updated.find((p) => p.status === 'ERROR' || p.status === 'CANCELED');
+            const reason = failedPart?.error ? ` Reason: ${failedPart.error}` : '';
+            setError(`One or more parts failed to convert. Please try again.${reason}`);
             setStatus('error');
           } else {
             fetch(`/api/split-download?fileId=${fid}`)

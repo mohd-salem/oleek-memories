@@ -73,9 +73,13 @@ export async function POST(request: NextRequest) {
           totalParts: String(totalParts),
         },
         Settings: {
+          TimecodeConfig: {
+            Source: 'ZEROBASED',  // treat video start as 00:00:00:00 — required for InputClippings
+          },
           Inputs: [
             {
               FileInput: `s3://${INPUT_BUCKET}/${inputKey}`,
+              TimecodeSource: 'ZEROBASED',  // match TimecodeConfig — lets InputClippings work on any video
               InputClippings: inputClippings,
               AudioSelectors: {
                 'Audio Selector 1': {
