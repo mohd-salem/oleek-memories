@@ -124,12 +124,21 @@ export default function ConvertPageAWS() {
           clearInterval(interval);
           setStatus('complete');
           setProgress(100);
-          
+
           // Get download URL
           const downloadResponse = await fetch(`/api/download?fileId=${fileId}`);
           if (downloadResponse.ok) {
-            const { downloadUrl } = await downloadResponse.json();
+            const { downloadUrl, filename } = await downloadResponse.json();
             setDownloadUrl(downloadUrl);
+
+            // Send email once, client-side — avoids serverless in-memory jobStore loop
+            if (email) {
+              fetch('/api/notify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, fileId, downloadUrl, filename }),
+              }).catch(() => {});
+            }
           }
         } else if (data.status === 'ERROR' || data.status === 'CANCELED') {
           clearInterval(interval);
