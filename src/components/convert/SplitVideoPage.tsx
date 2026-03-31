@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import {
   Upload,
   CheckCircle2,
@@ -26,6 +26,7 @@ interface PartStatus {
   jobId: string;
   status: 'SUBMITTED' | 'PROGRESSING' | 'COMPLETE' | 'ERROR' | 'CANCELED';
   progress: number;
+  error?: string;
   downloadUrl?: string;
   filename?: string;
 }
@@ -166,6 +167,24 @@ async function multipartUpload(
   return { fileId, key };
 }
 
+// ---------- localStorage helpers ----------
+const LS_KEY = 'oleek_split_job';
+interface SavedJob { fileId: string; jobIds: string[]; email: string; startedAt: number; }
+function saveJob(fileId: string, jobIds: string[], email: string) {
+  try { localStorage.setItem(LS_KEY, JSON.stringify({ fileId, jobIds, email, startedAt: Date.now() })); } catch {}
+}
+function loadJob(): SavedJob | null {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return null;
+    const job = JSON.parse(raw) as SavedJob;
+    // Discard if older than 24 hours
+    if (Date.now() - job.startedAt > 24 * 60 * 60 * 1000) { localStorage.removeItem(LS_KEY); return null; }
+    return job;
+  } catch { return null; }
+}
+function clearJob() { try { localStorage.removeItem(LS_KEY); } catch {} }
+
 // ---------- component ----------
 export default function SplitVideoPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -177,7 +196,14 @@ export default function SplitVideoPage() {
   const [error, setError] = useState<string | null>(null);
   const [fileId, setFileId] = useState<string | null>(null);
   const [parts, setParts] = useState<PartStatus[]>([]);
+  const [savedJob, setSavedJob] = useState<SavedJob | null>(null);
   const pollingRef = useRef<NodeJS.Timeout | null>(null);
+
+  // On mount: check localStorage for an in-progress job from a previous session
+  useEffect(() => {
+    const job = loadJob();
+    if (job) setSavedJob(job);
+  }, []);
 
   // ---- file selection ----
   const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -243,6 +269,9 @@ export default function SplitVideoPage() {
 
       const { jobIds } = await splitRes.json() as { jobIds: string[]; totalParts: number };
 
+      // Save to localStorage so user can recover if they refresh or close the tab
+      saveJob(fid, jobIds, email);
+
       const initialParts: PartStatus[] = jobIds.map((jobId, i) => ({
         partNumber: i + 1,
         jobId,
@@ -253,7 +282,7 @@ export default function SplitVideoPage() {
       setStatus('polling');
 
       // Start polling
-      startPolling(fid, jobIds);
+      startPolling(fid, jobIds, email);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
       setStatus('error');
@@ -261,7 +290,7 @@ export default function SplitVideoPage() {
   };
 
   // ---- polling ----
-  const startPolling = (fid: string, jobIds: string[]) => {
+  const startPolling = (fid: string, jobIds: string[], emailAddr: string) => {
     if (pollingRef.current) clearInterval(pollingRef.current);
 
     // Use functional update inside interval to always reference latest parts
@@ -287,6 +316,7 @@ export default function SplitVideoPage() {
             ...p,
             status: data.status ?? p.status,
             progress: data.progress ?? p.progress,
+            error: data.error ?? p.error,
           };
         });
 
@@ -296,6 +326,7 @@ export default function SplitVideoPage() {
 
         if (allDone) {
           if (pollingRef.current) clearInterval(pollingRef.current);
+          clearJob(); // remove from localStorage
           const anyError = updated.some((p) => p.status === 'ERROR' || p.status === 'CANCELED');
           if (anyError) {
             setError('One or more parts failed to convert. Please try again.');
@@ -310,6 +341,16 @@ export default function SplitVideoPage() {
                     return dl ? { ...p, downloadUrl: dl.downloadUrl, filename: dl.filename } : p;
                   })
                 );
+
+                // ✅ Send multi-part email notification if user provided email
+                if (emailAddr) {
+                  fetch('/api/notify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: emailAddr, fileId: fid, parts: dlParts }),
+                  }).catch(() => {});
+                }
+
                 setStatus('complete');
               })
               .catch(() => setStatus('complete'));
@@ -319,6 +360,24 @@ export default function SplitVideoPage() {
         return updated;
       });
     }, 4000);
+  };
+
+  // ---- resume saved job ----
+  const handleResume = () => {
+    if (!savedJob) return;
+    setSavedJob(null);
+    const { fileId: fid, jobIds, email: savedEmail } = savedJob;
+    setFileId(fid);
+    setEmail(savedEmail);
+    const initialParts: PartStatus[] = jobIds.map((jobId, i) => ({
+      partNumber: i + 1,
+      jobId,
+      status: 'SUBMITTED',
+      progress: 0,
+    }));
+    setParts(initialParts);
+    setStatus('polling');
+    startPolling(fid, jobIds, savedEmail);
   };
 
   const handleReset = () => {
@@ -332,6 +391,7 @@ export default function SplitVideoPage() {
     setError(null);
     setFileId(null);
     setParts([]);
+    clearJob();
   };
 
   // ---- render ----
@@ -355,7 +415,33 @@ export default function SplitVideoPage() {
           </p>
         </div>
 
-        {/* Info banner */}
+        {/* Resume banner: shown when a previous job is detected in localStorage */}
+        {savedJob && status === 'idle' && (
+          <div className="bg-gold-50 border border-gold-300 rounded-lg p-4 mb-6 flex items-start gap-3">
+            <CheckCircle2 className="w-5 h-5 text-gold-600 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-charcoal-800 mb-1">You have an in-progress split job</p>
+              <p className="text-xs text-charcoal-600 mb-3">
+                It looks like you started a split job earlier. You can resume checking its status.
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={handleResume}
+                  className="bg-gold-500 hover:bg-gold-600 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
+                >
+                  Resume / Check Status
+                </button>
+                <button
+                  onClick={() => { clearJob(); setSavedJob(null); }}
+                  className="text-xs text-charcoal-500 hover:text-charcoal-700 px-3 py-2"
+                >
+                  Dismiss
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8 flex items-start gap-3">
           <Shield className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
           <div className="text-sm text-charcoal-700">
