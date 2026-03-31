@@ -239,11 +239,15 @@ export default function LearnPage() {
 
             <AccordionItem title="Device Won't Turn On">
               <p className="mb-3">
-                <strong>Solutions:</strong>
+                <strong>How to turn on:</strong> The device has no power button — it turns on automatically when you open the cover and sleeps when you close it.
+              </p>
+              <p className="mb-3">
+                <strong>Troubleshooting:</strong>
               </p>
               <ul className="list-disc pl-6">
-                <li>Charge for at least 30 minutes before trying</li>
-                <li>Press and hold power button for 10 seconds (force restart)</li>
+                <li>Make sure the cover is fully open</li>
+                <li>Charge for at least 30 minutes before trying again</li>
+                <li>To force restart: close the cover completely, wait 10 seconds, then open it again</li>
                 <li>If still not working, contact our support team</li>
               </ul>
             </AccordionItem>
