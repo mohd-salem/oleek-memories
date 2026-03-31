@@ -13,10 +13,10 @@ import {
 } from 'lucide-react';
 
 // ---------- constants ----------
-const MAX_PART_SIZE = 4.5 * 1024 * 1024 * 1024; // 4.5 GB
+const MAX_PART_SIZE = 50 * 1024 * 1024; // TEST MODE: 50 MB (production: 4.5 GB)
 const CHUNK_SIZE = 50 * 1024 * 1024; // 50 MB per S3 multipart chunk
 const MIN_FILE_SIZE = 1 * 1024 * 1024; // 1 MB minimum
-const SPLIT_THRESHOLD = 5 * 1024 * 1024 * 1024; // 5 GB — below this, use convert tool
+const SPLIT_THRESHOLD = 100 * 1024 * 1024; // TEST MODE: 100 MB (production: 5 GB)
 
 // ---------- types ----------
 type SplitStatus = 'idle' | 'analyzing' | 'uploading' | 'splitting' | 'polling' | 'complete' | 'error';
