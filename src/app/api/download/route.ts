@@ -51,8 +51,10 @@ export async function GET(request: NextRequest) {
     const outputKey = mp4Files[0].Key!;
     console.log('✅ Using output file:', outputKey);
 
-    // Generate download filename
-    const downloadFilename = `${fileId}-converted.mp4`;
+    // Derive download filename from the S3 key (MediaConvert preserves the original base name)
+    // Key format: {fileId}/{originalBaseName}.mp4
+    const keyFilename = outputKey.split('/').pop() || 'converted.mp4';
+    const downloadFilename = keyFilename.endsWith('.mp4') ? keyFilename : `${keyFilename}.mp4`;
 
     // Generate signed download URL (expires in 1 hour)
     // Force download instead of playing in browser

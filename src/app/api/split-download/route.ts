@@ -44,7 +44,11 @@ export async function GET(request: NextRequest) {
         const key = obj.Key!;
         const partMatch = key.match(/_part(\d+)/);
         const partNumber = partMatch ? parseInt(partMatch[1], 10) : index + 1;
-        const filename = `part${partNumber}-converted.mp4`;
+
+        // Derive filename from S3 key: strip fileId prefix, keep original base name
+        // Key format: {fileId}/{originalBaseName}_part{N}.mp4
+        const keyFilename = key.split('/').pop() || `part${partNumber}.mp4`;
+        const filename = keyFilename.endsWith('.mp4') ? keyFilename : `${keyFilename}.mp4`;
 
         const command = new GetObjectCommand({
           Bucket: OUTPUT_BUCKET,
