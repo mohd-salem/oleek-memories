@@ -68,6 +68,13 @@ export default function FAQPage() {
                 <li><strong>32GB:</strong> Holds approximately 12-15 hours of optimized video</li>
               </ul>
               <p className="mt-3">Both models have identical features—the only difference is storage capacity.</p>
+              <div className="mt-3 bg-blue-50 border border-blue-200 rounded p-3 text-sm text-blue-900">
+                <strong>Why does my device show less space than expected?</strong> This is completely normal.
+                The 16 GB model will show around <strong>14.6 GB</strong> of usable space (and the 32 GB model
+                around 29.7 GB). The difference is taken up by the device's system files and the way storage
+                is measured—just like a 16 GB USB drive never shows exactly 16.0 GB. Your total video capacity
+                is not affected.
+              </div>
             </AccordionItem>
 
             <AccordionItem title="Where can I buy the OLEEK Memories Book?">
