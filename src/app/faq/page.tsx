@@ -145,7 +145,7 @@ export default function FAQPage() {
                 <li><strong>Fewer support requests:</strong> Most playback issues are due to incompatible formats</li>
               </ol>
               <p className="mt-3">
-                Unlike competitors who require uploads to servers, our converter runs in your browser—your videos never leave your device.
+                Your video is uploaded to secure AWS cloud storage, converted, and automatically deleted within 24 hours. We never view, share, or retain your content.
               </p>
             </AccordionItem>
 
@@ -157,7 +157,7 @@ export default function FAQPage() {
                 <li>Large files (1GB-5GB): 30-90 minutes</li>
               </ul>
               <p className="mt-3 text-sm text-slate-600">
-                Conversion uses your computer's processor, so faster computer = faster conversion.
+                Conversion happens on AWS cloud servers — your computer speed does not affect it. Large files (close to 5 GB) may take up to 90 minutes.
               </p>
             </AccordionItem>
 
@@ -269,10 +269,15 @@ export default function FAQPage() {
           <Accordion>
             <AccordionItem title="Do you store or access my videos?">
               <p className="mb-3">
-                <strong>No.</strong> When you use our video converter, all processing happens in your browser. Your videos never leave your computer.
+                <strong>Your video is kept private and auto-deleted.</strong> To convert your video we upload it to a secure, private AWS S3 bucket. We do not:
               </p>
-              <p>
-                This is different from competitors who require uploading to servers. We designed our converter specifically to protect your privacy.
+              <ul className="list-disc pl-6 mb-3 space-y-1">
+                <li>View, access, or review your video content</li>
+                <li>Share your files with any third party</li>
+                <li>Keep your video after processing</li>
+              </ul>
+              <p className="text-sm text-slate-600">
+                All uploaded files are automatically and permanently deleted within <strong>24 hours</strong> of upload, regardless of whether conversion completes.
               </p>
             </AccordionItem>
 

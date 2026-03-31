@@ -361,8 +361,18 @@ export default function SplitVideoPage() {
           <div className="text-sm text-charcoal-700">
             <strong className="font-semibold">How It Works:</strong> Your video is uploaded to secure
             cloud storage, split into equal-time parts (each ≤ 4.5 GB), and converted to device format
-            in one step. Enter your email to walk away — links are emailed when ready (valid 24 h).
+            in one step. Enter your email to walk away — links are emailed when ready (valid 24 h).
           </div>
+        </div>
+
+        {/* Time warning banner */}
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-8 flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-charcoal-700">
+            <strong className="font-semibold">Processing time:</strong> Large videos can take up to
+            <strong> 2 hours</strong> to upload and convert. We recommend entering your email below
+            so you can close this page and return when ready.
+          </p>
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-8">
@@ -521,8 +531,11 @@ export default function SplitVideoPage() {
           {/* ── POLLING ── */}
           {status === 'polling' && parts.length > 0 && (
             <div className="py-4">
-              <p className="text-lg font-semibold text-charcoal-800 mb-6 text-center">
+              <p className="text-lg font-semibold text-charcoal-800 mb-2 text-center">
                 Converting {parts.length} parts…
+              </p>
+              <p className="text-sm text-charcoal-500 text-center mb-6">
+                Large videos can take up to <strong>2 hours</strong>. You can safely close this page if you entered your email.
               </p>
               <div className="space-y-4">
                 {parts.map((p) => (

@@ -37,19 +37,20 @@ export default function TermsPage() {
           </p>
 
           <h2>2. Description of Service</h2>
-          <p>The Service provides free, browser-based video conversion using WebAssembly technology (ffmpeg.wasm).</p>
+          <p>The Service provides free, cloud-based video conversion powered by AWS (Amazon Web Services).</p>
           
           <p><strong>What the Service does:</strong></p>
           <ul>
             <li>Converts video files to MP4 format optimized for OLEEK Memories Book devices</li>
-            <li>Processes videos entirely within your web browser (client-side)</li>
+            <li>Securely uploads your video to private AWS S3 storage for cloud processing</li>
+            <li>Automatically and permanently deletes your uploaded video within 24 hours</li>
             <li>Outputs videos with specific technical specifications (H.264 codec, up to 1080p, 30fps, etc.)</li>
           </ul>
           
           <p><strong>What the Service does NOT do:</strong></p>
           <ul>
-            <li>Upload, store, or transmit your video files to our servers</li>
-            <li>Collect or retain your video content</li>
+            <li>Retain your video files after the 24-hour auto-deletion window</li>
+            <li>Collect or view your video content</li>
             <li>Guarantee specific conversion times or results for all files</li>
           </ul>
 
@@ -79,16 +80,19 @@ export default function TermsPage() {
 
           <h2>4. Privacy & Data Collection</h2>
           
-          <h3>What We DON'T Collect</h3>
+          <h3>What We DON’T Do With Your Video</h3>
           <p>
-            <strong>Your video files never leave your device.</strong> The conversion process happens entirely in your web browser. We do not:
+            Your video is uploaded to a <strong>secure, private AWS S3 bucket</strong> solely for the purpose of conversion. We do not:
           </p>
           <ul>
-            <li>Upload your videos to our servers</li>
-            <li>Store your videos in any cloud service</li>
-            <li>Access, view, or retain your video content</li>
-            <li>Share your videos with third parties</li>
+            <li>View, review, or access your video content</li>
+            <li>Store your video in any permanent cloud service</li>
+            <li>Share your video with any third parties</li>
+            <li>Use your video for any purpose other than conversion</li>
           </ul>
+          <p>
+            <strong>All uploaded files are automatically and permanently deleted within 24 hours</strong>, regardless of whether conversion completes.
+          </p>
 
           <h3>What We MAY Collect</h3>
           <p>For basic website analytics, we may collect:</p>
@@ -141,14 +145,14 @@ export default function TermsPage() {
             The Service is optimized for files up to <strong>5GB</strong>. Larger files may fail or encounter errors. We are not responsible for failed conversions due to file size limitations.
           </p>
 
-          <h3>Browser Performance</h3>
+          <h3>Cloud Processing</h3>
           <p>
-            Video conversion is processor-intensive. You acknowledge that:
+            Video conversion runs on AWS cloud infrastructure. You acknowledge that:
           </p>
           <ul>
-            <li>Conversion may slow down your computer temporarily</li>
-            <li>Large files may take 30-60+ minutes</li>
-            <li>Your battery may drain quickly during conversion</li>
+            <li>Upload speed depends on your internet connection</li>
+            <li>Large files (up to 5 GB) may take 30–90 minutes to convert</li>
+            <li>Conversion results are available for download for 24 hours</li>
           </ul>
 
           <h2>8. Modifications</h2>
@@ -168,8 +172,8 @@ export default function TermsPage() {
             <h3 className="font-semibold text-charcoal-900 mb-3">Summary (Not Legally Binding)</h3>
             <p className="text-sm mb-3">In simple terms:</p>
             <ul className="list-disc pl-6 text-sm space-y-1">
-              <li>✓ You own your videos—we never touch them</li>
-              <li>✓ Conversion happens in your browser—we never see your files</li>
+              <li>✓ You own your videos—we never retain them</li>
+              <li>✓ Videos are processed securely in the cloud and auto-deleted within 24 hours</li>
               <li>✓ Use for legal, personal purposes only</li>
               <li>✓ Service provided "as-is"—no guarantees</li>
               <li>✓ Back up originals before converting</li>
