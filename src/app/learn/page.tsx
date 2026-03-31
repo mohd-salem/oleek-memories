@@ -48,11 +48,11 @@ export default function LearnPage() {
                 Connect to Your Computer
               </h3>
               <p className="text-charcoal-700 mb-3">
-                Close the device cover, connect the USB cable to your computer. Wait 10-15 seconds for recognition.
+                Close the device cover, connect the USB cable to your computer. Wait 10–15 seconds for recognition.
               </p>
               <ul className="list-disc pl-6 text-charcoal-700 space-y-1">
-                <li><strong>Mac:</strong> A drive icon labeled "OLEEK" appears on desktop</li>
-                <li><strong>PC:</strong> Device appears in File Explorer under "This PC"</li>
+                <li><strong>PC:</strong> Device appears in File Explorer under <strong>"This PC"</strong> as <strong>"MediaPlayer (D:)"</strong> or similar drive letter</li>
+                <li><strong>Mac:</strong> A drive icon labeled <strong>"MediaPlayer"</strong> appears on the desktop and in Finder</li>
               </ul>
             </div>
 
@@ -62,11 +62,23 @@ export default function LearnPage() {
                 Copy Your Video Files
               </h3>
               <p className="text-charcoal-700 mb-3">
-                Drag and drop your video files into the device folder (usually "DCIM" or "Videos"). A 2GB video typically takes 2-5 minutes to copy.
+                Open the <strong>MediaPlayer</strong> drive. You will see these folders:
+              </p>
+              <ul className="list-disc pl-6 text-charcoal-700 space-y-1 mb-3">
+                <li><strong>Video</strong> — put your MP4 files here</li>
+                <li>Music — for audio files</li>
+                <li>Photo — for images</li>
+                <li>LOST.DIR — system folder, leave it alone</li>
+              </ul>
+              <p className="text-charcoal-700 mb-3">
+                Drag and drop your converted MP4 files into the <strong>Video</strong> folder.
+                A 2 GB video typically takes 2–5 minutes to copy.
               </p>
               <div className="bg-blue-50 border border-blue-200 p-4 rounded mt-3">
                 <p className="text-sm text-blue-900">
-                  <strong>Pro tip:</strong> Rename files with numbers (01_ceremony.mp4, 02_reception.mp4) to control playback order.
+                  <strong>Pro tip:</strong> Rename files with numbers to control playback order —
+                  e.g. <code className="bg-blue-100 px-1 rounded">01_ceremony.mp4</code>,{' '}
+                  <code className="bg-blue-100 px-1 rounded">02_reception.mp4</code>.
                 </p>
               </div>
             </div>
@@ -210,7 +222,7 @@ export default function LearnPage() {
                 <li>Special characters in filename</li>
               </ul>
               <p>
-                <strong>Solutions:</strong> Ensure videos are in "Videos" or "DCIM" folder, convert files using our tool, and rename to simple names (e.g., "wedding.mp4").
+                <strong>Solutions:</strong> Ensure videos are in the <strong>Video</strong> folder (not Music or Photo), convert files using our tool, and rename to simple names (e.g., <code className="bg-cream-200 px-1 rounded">wedding.mp4</code>).
               </p>
             </AccordionItem>
 

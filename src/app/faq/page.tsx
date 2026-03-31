@@ -185,8 +185,9 @@ export default function FAQPage() {
               <p className="mb-3">It works like a USB flash drive:</p>
               <ol className="list-decimal pl-6 space-y-2">
                 <li>Connect device to computer via USB</li>
-                <li>Device appears as a drive (like a flash drive)</li>
-                <li>Drag and drop videos into the Videos folder</li>
+                <li>Device appears as <strong>"MediaPlayer"</strong> (PC: in File Explorer under "This PC" · Mac: on the desktop)</li>
+                <li>Open the drive — you will see folders: <strong>Video</strong>, Music, Photo, LOST.DIR</li>
+                <li>Drag and drop your MP4 files into the <strong>Video</strong> folder</li>
                 <li>Safely eject the device</li>
                 <li>Open cover and videos play automatically</li>
               </ol>
