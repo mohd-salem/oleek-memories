@@ -12,7 +12,7 @@ export default function Header() {
   
   const navLinks = [
     { href: '/convert', label: 'Convert Video', badge: undefined },
-    { href: '/split', label: 'Split Video', badge: '5 GB+' },
+    { href: '/split', label: 'Split & convert Video', badge: '5 GB+' },
     { href: '/learn', label: 'Learn', badge: undefined },
     { href: '/faq', label: 'FAQ', badge: undefined },
     { href: '/contact', label: 'Contact', badge: undefined },
