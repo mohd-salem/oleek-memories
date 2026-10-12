@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
     const keyFilename = outputKey.split('/').pop() || 'converted.mp4';
     const downloadFilename = keyFilename.endsWith('.mp4') ? keyFilename : `${keyFilename}.mp4`;
 
-    // Generate signed download URL (expires in 1 hour)
+    // Generate signed download URL (expires in 48 hours)
     // Force download instead of playing in browser
     const command = new GetObjectCommand({
       Bucket: OUTPUT_BUCKET,
@@ -66,7 +66,7 @@ export async function GET(request: NextRequest) {
     });
 
     const downloadUrl = await getSignedUrl(s3Client, command, {
-      expiresIn: 3600, // 1 hour
+      expiresIn: 172800, // 48 hours
     });
 
     return NextResponse.json({

@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
         });
 
         const downloadUrl = await getSignedUrl(s3Client, command, {
-          expiresIn: 3600,
+          expiresIn: 172800, // 48 hours
         });
 
         return { partNumber, filename, downloadUrl };
