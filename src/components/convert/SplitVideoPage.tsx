@@ -471,7 +471,7 @@ export default function SplitVideoPage() {
           <div className="text-sm text-charcoal-700">
             <strong className="font-semibold">How It Works:</strong> Your video is uploaded to secure
             cloud storage, split into equal-time parts (each ≤ 4.5 GB), and converted to device format
-            in one step. Enter your email to walk away — links are emailed when ready (valid 24 h).
+            in one step. Enter your email to walk away — links are emailed when ready (valid 48 h).
           </div>
         </div>
 

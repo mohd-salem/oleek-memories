@@ -230,7 +230,7 @@ export default function ConvertPageAWS() {
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8 flex items-start gap-3">
           <Shield className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
           <div className="text-sm text-charcoal-700">
-            <strong className="font-semibold">How It Works:</strong> You upload your video (required wait), then conversion happens in our AWS cloud servers. Enter your email and you can leave this page — we'll send you the download link when ready (~30 sec). Links valid for 24 hours.
+            <strong className="font-semibold">How It Works:</strong> You upload your video (required wait), then conversion happens in our AWS cloud servers. Enter your email and you can leave this page — we'll send you the download link when ready (~30 sec). Links valid for 48 hours.
           </div>
         </div>
 
@@ -363,7 +363,7 @@ export default function ConvertPageAWS() {
                   <p className="text-sm text-charcoal-700">
                     ✅ <strong>You can leave this page!</strong><br/>
                     We'll email the download link to <strong>{email}</strong> when ready.<br/>
-                    <span className="text-xs text-charcoal-600">Link valid for 24 hours</span>
+                    <span className="text-xs text-charcoal-600">Link valid for 48 hours</span>
                   </p>
                 </div>
               ) : (
@@ -410,7 +410,7 @@ export default function ConvertPageAWS() {
                 </button>
               </div>
               <p className="text-xs text-charcoal-500 mt-4">
-                💡 Download link valid for 24 hours (both here and in email)
+                💡 Download link valid for 48 hours (both here and in email)
               </p>
             </div>
           )}

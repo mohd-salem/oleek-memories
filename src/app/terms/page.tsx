@@ -152,7 +152,7 @@ export default function TermsPage() {
           <ul>
             <li>Upload speed depends on your internet connection</li>
             <li>Large files (up to 5 GB) may take 30–90 minutes to convert</li>
-            <li>Conversion results are available for download for 24 hours</li>
+            <li>Conversion results are available for download for 48 hours</li>
           </ul>
 
           <h2>8. Modifications</h2>

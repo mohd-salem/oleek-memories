@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
             <strong>Next steps:</strong> Copy <em>all</em> parts into the <strong>Video</strong> folder on your OLEEK device. They will play in order (Part 1, Part 2…) for a seamless viewing experience.
           </p>
           <p style="color:#666;font-size:14px;margin-top:24px;">
-            <strong>Note:</strong> Download links expire in <strong>24 hours</strong>. Please save the files before then.
+            <strong>Note:</strong> Download links expire in <strong>48 hours</strong>. Please save the files before then.
           </p>
           <hr style="border:none;border-top:1px solid #eee;margin:30px 0;">
           <p style="color:#999;font-size:12px;">
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
             </a>
           </p>
           <p style="color:#666;font-size:14px;">
-            <strong>Note:</strong> This download link will expire in 24 hours for your security.
+            <strong>Note:</strong> This download link will expire in 48 hours for your security.
           </p>
           <hr style="border:none;border-top:1px solid #eee;margin:30px 0;">
           <p style="color:#999;font-size:12px;">
