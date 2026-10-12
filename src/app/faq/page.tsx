@@ -145,7 +145,7 @@ export default function FAQPage() {
                 <li><strong>Fewer support requests:</strong> Most playback issues are due to incompatible formats</li>
               </ol>
               <p className="mt-3">
-                Your video is uploaded to secure AWS cloud storage, converted, and automatically deleted within 24 hours. We never view, share, or retain your content.
+                Your video is uploaded to secure AWS cloud storage and converted. Uploaded originals are automatically deleted within 24 hours, and converted files are deleted after 48 hours. We never view, share, or retain your content.
               </p>
             </AccordionItem>
 
@@ -277,7 +277,7 @@ export default function FAQPage() {
                 <li>Keep your video after processing</li>
               </ul>
               <p className="text-sm text-slate-600">
-                All uploaded files are automatically and permanently deleted within <strong>24 hours</strong> of upload, regardless of whether conversion completes.
+                Uploaded files are automatically and permanently deleted within <strong>24 hours</strong> of upload, and converted files are deleted after <strong>48 hours</strong>.
               </p>
             </AccordionItem>
 

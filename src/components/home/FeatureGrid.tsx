@@ -37,7 +37,7 @@ const features = [
   {
     icon: Shield,
     title: 'Free Video Converter',
-    description: 'Professional cloud-powered tool converts videos up to 5 GB in seconds. Secure processing with automatic 24-hour deletion.',
+    description: 'Professional cloud-powered tool converts videos up to 5 GB in seconds. Secure processing with automatic file deletion.',
     href: '/convert',
   },
   {

@@ -768,7 +768,7 @@ export default function SplitVideoPage() {
           <p className="font-semibold text-charcoal-800 text-base">Frequently asked questions</p>
           <p>
             <strong>What happens to the original video?</strong> It is stored securely on AWS S3 and
-            automatically deleted within 24 hours.
+            automatically deleted within 24 hours. Converted parts are deleted after 48 hours.
           </p>
           <p>
             <strong>How are the cut points decided?</strong> The video is divided into equal-time

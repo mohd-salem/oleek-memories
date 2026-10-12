@@ -12,7 +12,7 @@ export default function PrivacyBadge() {
             Your Privacy Is Protected
           </h3>
           <p className="text-green-800 text-sm leading-relaxed">
-            Your video is uploaded to secure, private AWS cloud storage for processing. We never view, share, or retain your files — uploaded videos are automatically and permanently deleted within 24 hours.
+            Your video is uploaded to secure, private AWS cloud storage for processing. We never view, share, or retain your files — uploads are automatically deleted within 24 hours and converted files after 48 hours.
           </p>
         </div>
       </div>

@@ -29,7 +29,7 @@ export default function ConverterCTA() {
                 Secure & Private
               </h3>
               <p className="text-sm text-charcoal-700">
-                Files auto-delete after 24 hours—your memories stay yours
+                Uploads auto-delete after 24 hours—your memories stay yours
               </p>
             </div>
             

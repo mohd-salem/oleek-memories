@@ -43,13 +43,13 @@ export default function TermsPage() {
           <ul>
             <li>Converts video files to MP4 format optimized for OLEEK Memories Book devices</li>
             <li>Securely uploads your video to private AWS S3 storage for cloud processing</li>
-            <li>Automatically and permanently deletes your uploaded video within 24 hours</li>
+            <li>Automatically and permanently deletes your uploaded video within 24 hours, and converted files after 48 hours</li>
             <li>Outputs videos with specific technical specifications (H.264 codec, up to 1080p, 30fps, etc.)</li>
           </ul>
           
           <p><strong>What the Service does NOT do:</strong></p>
           <ul>
-            <li>Retain your video files after the 24-hour auto-deletion window</li>
+            <li>Retain your video files after the auto-deletion window</li>
             <li>Collect or view your video content</li>
             <li>Guarantee specific conversion times or results for all files</li>
           </ul>
@@ -91,7 +91,7 @@ export default function TermsPage() {
             <li>Use your video for any purpose other than conversion</li>
           </ul>
           <p>
-            <strong>All uploaded files are automatically and permanently deleted within 24 hours</strong>, regardless of whether conversion completes.
+            <strong>All uploaded files are automatically and permanently deleted within 24 hours</strong>, and converted files are deleted after 48 hours.
           </p>
 
           <h3>What We MAY Collect</h3>
@@ -173,7 +173,7 @@ export default function TermsPage() {
             <p className="text-sm mb-3">In simple terms:</p>
             <ul className="list-disc pl-6 text-sm space-y-1">
               <li>✓ You own your videos—we never retain them</li>
-              <li>✓ Videos are processed securely in the cloud and auto-deleted within 24 hours</li>
+              <li>✓ Videos are processed securely in the cloud; uploads auto-delete within 24 hours, converted files after 48 hours</li>
               <li>✓ Use for legal, personal purposes only</li>
               <li>✓ Service provided "as-is"—no guarantees</li>
               <li>✓ Back up originals before converting</li>
